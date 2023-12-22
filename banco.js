@@ -7,11 +7,16 @@
 require('dotenv').config();
 const Sequelize = require('sequelize');
 
-const banco = new Sequelize(process.env.MSQLDBAS, process.env.MSQLUSER, process.env.MSQLPASS, {
-  host: process.env.MSQLHOST,
-  dialect: 'mysql',
-});
-
+const banco = new Sequelize(
+  process.env.MSQLDBAS,
+  process.env.MSQLUSER,
+  process.env.MSQLPASS,
+  {
+    host: process.env.MSQLHOST,
+    port: process.env.MSQLPORT,
+    dialect: 'mysql',
+  }
+);
 
 banco
   .authenticate()

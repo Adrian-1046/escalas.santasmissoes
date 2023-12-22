@@ -1,0 +1,10 @@
+para vizualisar o projeto, certifique-se de que tem o node instalado na máquina,
+abra a pasta raiz do projeto, pressione SHIFT + Botão direito do mouse,
+selecione a opção de abrir o terminal,
+na janela aberta digite `node app.js` e abra o link retornado pelo terminal;
+
+---------------------------------------------------------------------
+
+se o terminal acusar que a porta está ocupada, abra o arquivo app.js,
+encontre a constante [porta] na linha 1 e altere para a porta desejada,
+agora reinicie a escuta com o mesmo comando `node app.js` e abra o link que o terminal retornar;

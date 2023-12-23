@@ -796,6 +796,6 @@ app.post('/atualizar-musicas/:tela', async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT ?? porta, function () {
+app.listen(process.env.MSQLPORT ?? porta, function () {
   console.log(`Servidor rodando em http://localhost:` + porta);
 });

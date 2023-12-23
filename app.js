@@ -232,7 +232,7 @@ app.get('/inicio/musicas/:tela', async (req, res) => {
   }
 });
 
-app.post('/atualizar-escalas/:tela', async (req, res) => {
+app.post('/atualizar-escalas/:tela', verificaAutorizacao, async (req, res) => {
   const tela = req.params.tela;
 
   try {
@@ -635,7 +635,7 @@ app.post('/acesso', async function (req, res) {
   }
 });
 
-app.post('/atualizar-usuario', async function (req, res) {
+app.post('/atualizar-usuario', verificaAutorizacao, async function (req, res) {
   try {
     const { ID, EMAIL, CARGO, ATIVO, TELEFONE, ACESSO } = req.body;
 
@@ -663,7 +663,7 @@ app.post('/atualizar-usuario', async function (req, res) {
   }
 });
 
-app.post('/atualizar-recepcionistas/:dia', async (req, res) => {
+app.post('/atualizar-recepcionistas/:dia', verificaAutorizacao, async (req, res) => {
   try {
     const {
       s1Data,
@@ -704,7 +704,7 @@ app.post('/atualizar-recepcionistas/:dia', async (req, res) => {
 });
 
 // app.js
-app.post('/atualizar-pregadores/:dia', async (req, res) => {
+app.post('/atualizar-pregadores/:dia', verificaAutorizacao, async (req, res) => {
   try {
     const {
       s1Data,
@@ -744,7 +744,7 @@ app.post('/atualizar-pregadores/:dia', async (req, res) => {
   }
 });
 
-app.post('/atualizar-musicas/:tela', async (req, res) => {
+app.post('/atualizar-musicas/:tela', verificaAutorizacao, async (req, res) => {
   const tela = req.params.tela;
 
   try {

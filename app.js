@@ -40,7 +40,7 @@ function verificaAutorizacao(req, res, next) {
   if (req.session.ACESSO === 'MST') {
     return next();
   } else {
-    res.send(`Seu usuário não tem acesso a esta tela`);
+    res.send(`USUÁRIO SEM ACESSO! Entre em contato com a liderança!`);
   }
 }
 

@@ -4,7 +4,7 @@ const banco = require('../../banco');
 const tbUsuarios = banco.define(
   'USUARIOS',
   {
-    ID_USUARIO: {
+    ID: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,

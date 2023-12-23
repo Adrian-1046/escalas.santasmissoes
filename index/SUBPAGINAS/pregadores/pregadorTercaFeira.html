@@ -1,0 +1,40 @@
+<!-- pregadores.html -->
+<form onsubmit="event.preventDefault(); atualizarPregador('Terca');">
+  <h1>Pregadores - TERÇA-FEIRA</h1>
+  <table>
+    <tr>
+      <th>DATA</th>
+      <th>PREGADORES</th>
+    </tr>
+    <tr>
+      <td id="s1_data" contenteditable="true"></td>
+      <td id="s1_pregador" contenteditable="true"></td>
+    </tr>
+    <tr>
+      <td id="s2_data" contenteditable="true"></td>
+      <td id="s2_pregador" contenteditable="true"></td>
+    </tr>
+    <tr>
+      <td id="s3_data" contenteditable="true"></td>
+      <td id="s3_pregador" contenteditable="true"></td>
+    </tr>
+    <tr>
+      <td id="s4_data" contenteditable="true"></td>
+      <td id="s4_pregador" contenteditable="true"></td>
+    </tr>
+    <tr>
+      <td id="s5_data" contenteditable="true"></td>
+      <td id="s5_pregador" contenteditable="true"></td>
+    </tr>
+  </table>
+  <div id="botao">
+    <button type="submit" class="save-button" id="bSalvarTerca">Gravar</button>
+  </div>
+  <p>
+    Não esqueça de confirmar se ficou salvo as alterações, recarregue a página
+    após gravar.
+  </p>
+  <a href="inicio">Voltar</a>
+
+  <script src="./../../SCRIPT/Pregadores.js"></script>
+</form>

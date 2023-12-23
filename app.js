@@ -557,7 +557,7 @@ app.post('/login', async function (req, res) {
     if (user) {
       // Compare the provided password with the password stored in the database
       if (req.body.senha === user.SENHA) {
-        req.session.ID_USUARIO = user.ID_USUARIO;
+        req.session.ID = user.ID;
         req.session.USUARIO = user.USUARIO;
         req.session.ACESSO = user.ACESSO;
         req.session.usuario = user;
@@ -595,7 +595,7 @@ app.post('/logout', function (req, res) {
 app.post('/inicio', async function (req, res) {
   try {
     await sugerir.create({
-      ID_USUARIO: req.session.ID_USUARIO,
+      ID: req.session.ID,
       USUARIO: req.session.USUARIO,
       SUGESTAO: req.body.sugestao,
     });
@@ -623,7 +623,7 @@ app.post('/acesso', async function (req, res) {
 
     if (usuario) {
       // Se o usuário for encontrado, envie as informações como resposta
-      const campos = `${usuario.ID_USUARIO};${usuario.USUARIO};${usuario.EMAIL};${usuario.CARGO};${usuario.ATIVO};${usuario.TELEFONE};${usuario.ACESSO}`;
+      const campos = `${usuario.ID};${usuario.USUARIO};${usuario.EMAIL};${usuario.CARGO};${usuario.ATIVO};${usuario.TELEFONE};${usuario.ACESSO}`;
       res.send(campos);
     } else {
       // Se o usuário não for encontrado, envie uma mensagem
@@ -637,7 +637,7 @@ app.post('/acesso', async function (req, res) {
 
 app.post('/atualizar-usuario', async function (req, res) {
   try {
-    const { ID_USUARIO, EMAIL, CARGO, ATIVO, TELEFONE, ACESSO } = req.body;
+    const { ID, EMAIL, CARGO, ATIVO, TELEFONE, ACESSO } = req.body;
 
     // Atualize o usuário no banco de dados
     await tbUsuarios.update(
@@ -650,7 +650,7 @@ app.post('/atualizar-usuario', async function (req, res) {
       },
       {
         where: {
-          ID_USUARIO,
+          ID,
         },
       }
     );

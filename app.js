@@ -1,85 +1,85 @@
-const porta = 1046;
+const porta = 1046
 
-const express = require('express');
-const session = require('express-session');
-const exphbs = require('express-handlebars');
-const app = express();
+const express = require('express')
+const session = require('express-session')
+const exphbs = require('express-handlebars')
+const app = express()
 
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser')
 
-const tbUsuarios = require('./index/funcoesDeBanco/tbUsuarios');
-const escalar = require('./index/funcoesDeBanco/escalas');
-const pregar = require('./index/funcoesDeBanco/pregadores');
-const recepcionar = require('./index/funcoesDeBanco/recepcao');
-const sugerir = require('./index/funcoesDeBanco/sugestao');
-const ministrar = require('./index/funcoesDeBanco/ministrantes');
+const tbUsuarios = require('./index/funcoesDeBanco/tbUsuarios')
+const escalar = require('./index/funcoesDeBanco/escalas')
+const pregar = require('./index/funcoesDeBanco/pregadores')
+const recepcionar = require('./index/funcoesDeBanco/recepcao')
+const sugerir = require('./index/funcoesDeBanco/sugestao')
+const ministrar = require('./index/funcoesDeBanco/ministrantes')
 
-const { Sequelize, QueryTypes } = require('sequelize');
+const { Sequelize, QueryTypes } = require('sequelize')
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/index'));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static(__dirname + '/index'))
 app.use(
   session({
     secret: 'fGHwv$LwR#K!qZ7p&2s@8oU',
     resave: false,
     saveUninitialized: true,
   })
-);
+)
 
 function verificaAutenticacao(req, res, next) {
   if (req.session && req.session.usuario) {
-    return next(); // Continue para a próxima rota/middleware
+    return next() // Continue para a próxima rota/middleware
   } else {
-    res.redirect('/login'); // Redirecione para a página de login se não estiver autenticado
+    res.redirect('/login') // Redirecione para a página de login se não estiver autenticado
   }
 }
 
 function verificaAutorizacao(req, res, next) {
   if (req.session.ACESSO === 'MST') {
-    return next();
+    return next()
   } else {
-    res.send(`USUÁRIO SEM ACESSO! Entre em contato com a liderança!`);
+    res.send(`USUÁRIO SEM ACESSO! Entre em contato com a liderança!`)
   }
 }
 
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index/CADASTRO.HTML');
-});
+  res.sendFile(__dirname + '/index/CADASTRO.HTML')
+})
 
 app.get('/inicio', verificaAutenticacao, function (req, res) {
-  res.sendFile(__dirname + '/index/MENU.html');
-});
+  res.sendFile(__dirname + '/index/MENU.html')
+})
 
 app.get('/login', function (req, res) {
-  res.sendFile(__dirname + '/index/LOGIN.html');
-});
+  res.sendFile(__dirname + '/index/LOGIN.html')
+})
 
 app.get('/cadastro', function (req, res) {
-  res.sendFile(__dirname + '/index/CADASTRO.html');
-});
+  res.sendFile(__dirname + '/index/CADASTRO.html')
+})
 
 app.get('/adm', verificaAutenticacao, verificaAutorizacao, function (req, res) {
-  res.sendFile(__dirname + '/index/ADM.html');
-});
+  res.sendFile(__dirname + '/index/ADM.html')
+})
 
 app.get(
   '/acesso',
   verificaAutenticacao,
   verificaAutorizacao,
   function (req, res) {
-    res.sendFile(__dirname + '/index/ALTERARCADACESSO.html');
+    res.sendFile(__dirname + '/index/ALTERARCADACESSO.html')
   }
-);
+)
 
 app.get('/sucesso', function (req, res) {
-  res.render('sucesso', { mensagem: 'Sugestão gravada com sucesso!' });
-});
+  res.render('sucesso', { mensagem: 'Sugestão gravada com sucesso!' })
+})
 
 // Código do lado do servidor para buscar dados
 app.get('/inicio/pregadores/:tela', async (req, res) => {
-  const tela = req.params.tela;
+  const tela = req.params.tela
 
   try {
     // Realize a consulta no banco de dados para obter os dados correspondentes à tela
@@ -97,11 +97,11 @@ app.get('/inicio/pregadores/:tela', async (req, res) => {
         'S5_PREGADOR',
       ],
       where: { TELA: tela },
-    });
+    })
 
     // Verifique se há resultados
     if (!result) {
-      throw new Error(`Não foram encontrados dados para a tela: ${tela}`);
+      throw new Error(`Não foram encontrados dados para a tela: ${tela}`)
     }
 
     // Construa uma string com datas e pregadores separados por ponto e vírgula
@@ -116,18 +116,18 @@ app.get('/inicio/pregadores/:tela', async (req, res) => {
       result.S4_PREGADOR,
       result.S5_DATA,
       result.S5_PREGADOR,
-    ].join(';');
+    ].join(';')
 
     // Envie a string de dados como resposta
-    res.send(dados);
+    res.send(dados)
   } catch (error) {
-    console.error('Erro na busca de dados:', error);
-    res.status(500).send('Erro ao buscar dados do servidor');
+    console.error('Erro na busca de dados:', error)
+    res.status(500).send('Erro ao buscar dados do servidor')
   }
-});
+})
 
 app.get('/inicio/recepcionistas/:tela', async (req, res) => {
-  const tela = req.params.tela;
+  const tela = req.params.tela
 
   try {
     // Realize a consulta no banco de dados para obter os dados correspondentes à tela
@@ -145,11 +145,11 @@ app.get('/inicio/recepcionistas/:tela', async (req, res) => {
         'S5_RECEPCIONISTA',
       ],
       where: { TELA: tela },
-    });
+    })
 
     // Verifique se há resultados
     if (!result) {
-      throw new Error(`Não foram encontrados dados para a tela: ${tela}`);
+      throw new Error(`Não foram encontrados dados para a tela: ${tela}`)
     }
 
     // Construa uma string com datas e RECEPCIONISTA separados por ponto e vírgula
@@ -164,18 +164,18 @@ app.get('/inicio/recepcionistas/:tela', async (req, res) => {
       result.S4_RECEPCIONISTA,
       result.S5_DATA,
       result.S5_RECEPCIONISTA,
-    ].join(';');
+    ].join(';')
 
     // Envie a string de dados como resposta
-    res.send(dados);
+    res.send(dados)
   } catch (error) {
-    console.error('Erro na busca de dados:', error);
-    res.status(500).send('Erro ao buscar dados do servidor');
+    console.error('Erro na busca de dados:', error)
+    res.status(500).send('Erro ao buscar dados do servidor')
   }
-});
+})
 
 app.get('/inicio/musicas/:tela', async (req, res) => {
-  const tela = req.params.tela;
+  const tela = req.params.tela
 
   try {
     // Realize a consulta no banco de dados para obter os dados correspondentes à tela
@@ -198,11 +198,11 @@ app.get('/inicio/musicas/:tela', async (req, res) => {
         'S5_MUSICA',
       ],
       where: { TELA: tela },
-    });
+    })
 
     // Verifique se há resultados
     if (!result) {
-      throw new Error(`Não foram encontrados dados para a tela: ${tela}`);
+      throw new Error(`Não foram encontrados dados para a tela: ${tela}`)
     }
 
     // Construa uma string com datas e RECEPCIONISTA separados por ponto e vírgula
@@ -222,18 +222,18 @@ app.get('/inicio/musicas/:tela', async (req, res) => {
       result.S5_DATA,
       result.S5_MINISTRANTE,
       result.S5_MUSICA,
-    ].join(';');
+    ].join(';')
 
     // Envie a string de dados como resposta
-    res.send(dados);
+    res.send(dados)
   } catch (error) {
-    console.error('Erro na busca de dados:', error);
-    res.status(500).send('Erro ao buscar dados do servidor');
+    console.error('Erro na busca de dados:', error)
+    res.status(500).send('Erro ao buscar dados do servidor')
   }
-});
+})
 
 app.post('/atualizar-escalas/:tela', verificaAutorizacao, async (req, res) => {
-  const tela = req.params.tela;
+  const tela = req.params.tela
 
   try {
     const {
@@ -297,7 +297,7 @@ app.post('/atualizar-escalas/:tela', verificaAutorizacao, async (req, res) => {
       s5Back_3,
       s5Midia,
       s5Som,
-    } = req.body;
+    } = req.body
 
     await escalar.update(
       {
@@ -367,17 +367,17 @@ app.post('/atualizar-escalas/:tela', verificaAutorizacao, async (req, res) => {
         S5_SOM: s5Som,
       },
       { where: { TELA: tela } }
-    );
+    )
 
-    res.send('Dados da escala atualizados com sucesso!');
+    res.send('Dados da escala atualizados com sucesso!')
   } catch (error) {
-    console.error('Erro na atualização de dados:', error);
-    res.status(500).send('Erro na atualização de dados');
+    console.error('Erro na atualização de dados:', error)
+    res.status(500).send('Erro na atualização de dados')
   }
-});
+})
 
 app.get('/inicio/escalas/:tela', async (req, res) => {
-  const tela = req.params.tela;
+  const tela = req.params.tela
 
   try {
     const result = await escalar.findOne({
@@ -444,24 +444,24 @@ app.get('/inicio/escalas/:tela', async (req, res) => {
         'S5_SOM',
       ],
       where: { TELA: tela },
-    });
+    })
 
     if (!result) {
-      throw new Error(`Não foram encontrados dados para a tela: ${tela}`);
+      throw new Error(`Não foram encontrados dados para a tela: ${tela}`)
     }
 
     const dados = `${result.S1_DATA};${result.S1_MINISTRO};${result.S1_VIOLAO};${result.S1_BAIXO};${result.S1_TECLADO};${result.S1_BATERIA};${result.S1_GUITARRA};${result.S1_BACK_1};${result.S1_BACK_2};${result.S1_BACK_3};${result.S1_MIDIA};${result.S1_SOM};
             ${result.S2_DATA};${result.S2_MINISTRO};${result.S2_VIOLAO};${result.S2_BAIXO};${result.S2_TECLADO};${result.S2_BATERIA};${result.S2_GUITARRA};${result.S2_BACK_1};${result.S2_BACK_2};${result.S2_BACK_3};${result.S2_MIDIA};${result.S2_SOM};
             ${result.S3_DATA};${result.S3_MINISTRO};${result.S3_VIOLAO};${result.S3_BAIXO};${result.S3_TECLADO};${result.S3_BATERIA};${result.S3_GUITARRA};${result.S3_BACK_1};${result.S3_BACK_2};${result.S3_BACK_3};${result.S3_MIDIA};${result.S3_SOM};
             ${result.S4_DATA};${result.S4_MINISTRO};${result.S4_VIOLAO};${result.S4_BAIXO};${result.S4_TECLADO};${result.S4_BATERIA};${result.S4_GUITARRA};${result.S4_BACK_1};${result.S4_BACK_2};${result.S4_BACK_3};${result.S4_MIDIA};${result.S4_SOM};
-            ${result.S5_DATA};${result.S5_MINISTRO};${result.S5_VIOLAO};${result.S5_BAIXO};${result.S5_TECLADO};${result.S5_BATERIA};${result.S5_GUITARRA};${result.S5_BACK_1};${result.S5_BACK_2};${result.S5_BACK_3};${result.S5_MIDIA};${result.S5_SOM}`;
+            ${result.S5_DATA};${result.S5_MINISTRO};${result.S5_VIOLAO};${result.S5_BAIXO};${result.S5_TECLADO};${result.S5_BATERIA};${result.S5_GUITARRA};${result.S5_BACK_1};${result.S5_BACK_2};${result.S5_BACK_3};${result.S5_MIDIA};${result.S5_SOM}`
 
-    res.send(dados);
+    res.send(dados)
   } catch (error) {
-    console.error('Erro na busca de dados:', error);
-    res.status(500).send('Erro na busca de dados');
+    console.error('Erro na busca de dados:', error)
+    res.status(500).send('Erro na busca de dados')
   }
-});
+})
 
 app.get(
   '/adm-sugestoes',
@@ -469,36 +469,36 @@ app.get(
   verificaAutorizacao,
   async (req, res) => {
     try {
-      res.sendFile(__dirname + '/index/ADM-SUGESTOES.html');
+      res.sendFile(__dirname + '/index/ADM-SUGESTOES.html')
     } catch (error) {
-      console.error('Erro ao exibir a página ADM-SUGESTOES.html:', error);
-      res.status(500).send('Erro ao exibir a página ADM-SUGESTOES.html');
+      console.error('Erro ao exibir a página ADM-SUGESTOES.html:', error)
+      res.status(500).send('Erro ao exibir a página ADM-SUGESTOES.html')
     }
   }
-);
+)
 app.get('/obter-sugestoes', async (req, res) => {
   try {
     // Consulta o banco de dados para obter todas as sugestões
-    const sugestoes = await sugerir.findAll();
+    const sugestoes = await sugerir.findAll()
 
     // Construa o HTML com base nas sugestões
-    let html = '<ul>';
+    let html = '<ul>'
     sugestoes.forEach(sugestao => {
       html += `<li>${sugestao.USUARIO}: ${
         sugestao.SUGESTAO
       } <a href="/remover-sugestao?sugestao=${encodeURIComponent(
         sugestao.SUGESTAO
-      )}">Remover</a></li>`;
-    });
-    html += '</ul>';
+      )}">Remover</a></li>`
+    })
+    html += '</ul>'
 
     // Envia o HTML como resposta
-    res.send(html);
+    res.send(html)
   } catch (error) {
-    console.error('Erro ao obter sugestões do banco de dados:', error);
-    res.status(500).send('Erro ao obter sugestões do banco de dados');
+    console.error('Erro ao obter sugestões do banco de dados:', error)
+    res.status(500).send('Erro ao obter sugestões do banco de dados')
   }
-});
+})
 
 //#############################################################
 
@@ -506,26 +506,26 @@ app.get('/obter-sugestoes', async (req, res) => {
 
 app.get('/remover-sugestao', async (req, res) => {
   try {
-    const sugestao = decodeURIComponent(req.query.sugestao);
+    const sugestao = decodeURIComponent(req.query.sugestao)
 
     // Remove a sugestão do banco de dados
     await sugerir.destroy({
       where: {
         SUGESTAO: sugestao,
       },
-    });
+    })
 
-    res.redirect('/adm-sugestoes'); // Redireciona de volta para a página de sugestões
+    res.redirect('/adm-sugestoes') // Redireciona de volta para a página de sugestões
   } catch (error) {
-    console.error('Erro ao remover sugestão:', error);
-    res.status(500).send('Erro ao remover sugestão do servidor');
+    console.error('Erro ao remover sugestão:', error)
+    res.status(500).send('Erro ao remover sugestão do servidor')
   }
-});
+})
 
 app.post('/cadastrar', function (req, res) {
   tbUsuarios
     .create({
-      USUARIO: req.body.usuario,
+      USUARIO: req.body.usuario.toUpperCase().replace(/\s/g, ''),
       SENHA: req.body.senha,
       ACESSO: req.body.acesso,
       NOME: req.body.nome,
@@ -534,63 +534,63 @@ app.post('/cadastrar', function (req, res) {
       CARGO: req.body.cargo,
     })
     .then(function () {
-      res.redirect('/login');
+      res.redirect('/login')
     })
     .catch(function (erro) {
       res.send(
         `Houve um erro na gravação: ` +
           erro +
           `</br> Entre em contato com Eduardo Bittencourt!`
-      );
-    });
-});
+      )
+    })
+})
 
 app.post('/login', async function (req, res) {
   try {
     const user = await tbUsuarios.findOne({
       where: Sequelize.or(
-        { USUARIO: req.body.usuario },
+        { USUARIO: req.body.usuario.toUpperCase().replace(/\s/g, '') },
         { EMAIL: req.body.usuario }
       ),
-    });
+    })
 
     if (user) {
       // Compare the provided password with the password stored in the database
       if (req.body.senha === user.SENHA) {
-        req.session.ID = user.ID;
-        req.session.USUARIO = user.USUARIO;
-        req.session.ACESSO = user.ACESSO;
-        req.session.usuario = user;
-        res.redirect('/inicio');
+        req.session.ID = user.ID
+        req.session.USUARIO = user.USUARIO
+        req.session.ACESSO = user.ACESSO
+        req.session.usuario = user
+        res.redirect('/inicio')
       } else {
         // Password is incorrect
-        const errorMessage = 'Senha inválida';
-        res.status(401).send(errorMessage);
+        const errorMessage = 'Senha inválida'
+        res.status(401).send(errorMessage)
       }
     } else {
       // User does not exist or invalid credentials
-      const errorMessage = 'Login inválido';
-      res.status(401).send(errorMessage);
+      const errorMessage = 'Login inválido'
+      res.status(401).send(errorMessage)
     }
   } catch (error) {
-    console.error('Error:', error);
-    const errorMessage = 'Internal Server Error';
-    res.status(500).send(errorMessage);
+    console.error('Error:', error)
+    const errorMessage = 'Internal Server Error'
+    res.status(500).send(errorMessage)
   }
-});
+})
 
 app.post('/logout', function (req, res) {
   // Destrói a sessão
   req.session.destroy(function (err) {
     if (err) {
-      console.error('Erro ao destruir a sessão:', err);
-      res.status(500).send('Internal Server Error');
+      console.error('Erro ao destruir a sessão:', err)
+      res.status(500).send('Internal Server Error')
     } else {
       // Redireciona para a página de login após o logout
-      res.redirect('/login');
+      res.redirect('/login')
     }
-  });
-});
+  })
+})
 
 app.post('/inicio', async function (req, res) {
   try {
@@ -598,46 +598,46 @@ app.post('/inicio', async function (req, res) {
       ID: req.session.ID,
       USUARIO: req.session.USUARIO,
       SUGESTAO: req.body.sugestao,
-    });
-    res.sendFile(__dirname + '/index/MENU.html');
+    })
+    res.sendFile(__dirname + '/index/MENU.html')
   } catch (erro) {
     res
       .status(500)
       .send(
         `Houve um erro na gravação: ${erro}. Entre em contato com Eduardo Bittencourt!`
-      );
+      )
   }
-});
+})
 
 app.post('/acesso', async function (req, res) {
   try {
-    const consultaUsuario = req.body.usuario;
+    const consultaUsuario = req.body.usuario
 
     // Faça a consulta no banco de dados usando o valor fornecido
     const usuario = await tbUsuarios.findOne({
       where: Sequelize.or(
-        { USUARIO: consultaUsuario },
+        { USUARIO: consultaUsuario.toUpperCase().replace(/\s/g, '') },
         { EMAIL: consultaUsuario }
       ),
-    });
+    })
 
     if (usuario) {
       // Se o usuário for encontrado, envie as informações como resposta
-      const campos = `${usuario.ID};${usuario.USUARIO};${usuario.EMAIL};${usuario.CARGO};${usuario.ATIVO};${usuario.TELEFONE};${usuario.ACESSO}`;
-      res.send(campos);
+      const campos = `${usuario.ID};${usuario.USUARIO};${usuario.EMAIL};${usuario.CARGO};${usuario.ATIVO};${usuario.TELEFONE};${usuario.ACESSO}`
+      res.send(campos)
     } else {
       // Se o usuário não for encontrado, envie uma mensagem
-      res.send('Usuario nao encontrado');
+      res.send('Usuario nao encontrado')
     }
   } catch (error) {
-    console.error('Erro na consulta de usuário:', error);
-    res.status(500).send('Internal Server Error');
+    console.error('Erro na consulta de usuário:', error)
+    res.status(500).send('Internal Server Error')
   }
-});
+})
 
 app.post('/atualizar-usuario', verificaAutorizacao, async function (req, res) {
   try {
-    const { ID, EMAIL, CARGO, ATIVO, TELEFONE, ACESSO } = req.body;
+    const { ID, EMAIL, CARGO, ATIVO, TELEFONE, ACESSO } = req.body
 
     // Atualize o usuário no banco de dados
     await tbUsuarios.update(
@@ -653,99 +653,107 @@ app.post('/atualizar-usuario', verificaAutorizacao, async function (req, res) {
           ID,
         },
       }
-    );
+    )
 
     // Envie uma resposta de sucesso
-    res.redirect('/acesso');
+    res.redirect('/acesso')
   } catch (error) {
-    console.error('Erro na atualização de usuário:', error);
-    res.status(500).send('Internal Server Error');
+    console.error('Erro na atualização de usuário:', error)
+    res.status(500).send('Internal Server Error')
   }
-});
+})
 
-app.post('/atualizar-recepcionistas/:dia', verificaAutorizacao, async (req, res) => {
-  try {
-    const {
-      s1Data,
-      s1Recepcionista,
-      s2Data,
-      s2Recepcionista,
-      s3Data,
-      s3Recepcionista,
-      s4Data,
-      s4Recepcionista,
-      s5Data,
-      s5Recepcionista,
-    } = req.body;
+app.post(
+  '/atualizar-recepcionistas/:dia',
+  verificaAutorizacao,
+  async (req, res) => {
+    try {
+      const {
+        s1Data,
+        s1Recepcionista,
+        s2Data,
+        s2Recepcionista,
+        s3Data,
+        s3Recepcionista,
+        s4Data,
+        s4Recepcionista,
+        s5Data,
+        s5Recepcionista,
+      } = req.body
 
-    const { dia } = req.params;
+      const { dia } = req.params
 
-    await recepcionar.update(
-      {
-        S1_DATA: s1Data,
-        S1_RECEPCIONISTA: s1Recepcionista,
-        S2_DATA: s2Data,
-        S2_RECEPCIONISTA: s2Recepcionista,
-        S3_DATA: s3Data,
-        S3_RECEPCIONISTA: s3Recepcionista,
-        S4_DATA: s4Data,
-        S4_RECEPCIONISTA: s4Recepcionista,
-        S5_DATA: s5Data,
-        S5_RECEPCIONISTA: s5Recepcionista,
-      },
-      { where: { TELA: dia } }
-    );
+      await recepcionar.update(
+        {
+          S1_DATA: s1Data,
+          S1_RECEPCIONISTA: s1Recepcionista,
+          S2_DATA: s2Data,
+          S2_RECEPCIONISTA: s2Recepcionista,
+          S3_DATA: s3Data,
+          S3_RECEPCIONISTA: s3Recepcionista,
+          S4_DATA: s4Data,
+          S4_RECEPCIONISTA: s4Recepcionista,
+          S5_DATA: s5Data,
+          S5_RECEPCIONISTA: s5Recepcionista,
+        },
+        { where: { TELA: dia } }
+      )
 
-    res.send('Dados atualizados com sucesso!');
-  } catch (error) {
-    console.error('Erro na atualização de recepcionistas:', error);
-    res.status(500).send('Internal Server Error');
+      res.send('Dados atualizados com sucesso!')
+    } catch (error) {
+      console.error('Erro na atualização de recepcionistas:', error)
+      res.status(500).send('Internal Server Error')
+    }
   }
-});
+)
 
 // app.js
-app.post('/atualizar-pregadores/:dia', verificaAutorizacao, async (req, res) => {
-  try {
-    const {
-      s1Data,
-      s1Pregador,
-      s2Data,
-      s2Pregador,
-      s3Data,
-      s3Pregador,
-      s4Data,
-      s4Pregador,
-      s5Data,
-      s5Pregador,
-    } = req.body;
+app.post(
+  '/atualizar-pregadores/:dia',
+  verificaAutorizacao,
+  async (req, res) => {
+    try {
+      const {
+        s1Data,
+        s1Pregador,
+        s2Data,
+        s2Pregador,
+        s3Data,
+        s3Pregador,
+        s4Data,
+        s4Pregador,
+        s5Data,
+        s5Pregador,
+      } = req.body
 
-    const { dia } = req.params;
+      const { dia } = req.params
 
-    await pregar.update(
-      {
-        S1_DATA: s1Data,
-        S1_PREGADOR: s1Pregador,
-        S2_DATA: s2Data,
-        S2_PREGADOR: s2Pregador,
-        S3_DATA: s3Data,
-        S3_PREGADOR: s3Pregador,
-        S4_DATA: s4Data,
-        S4_PREGADOR: s4Pregador,
-        S5_DATA: s5Data,
-        S5_PREGADOR: s5Pregador,
-      },
-      { where: { TELA: dia } }
-    );
+      await pregar.update(
+        {
+          S1_DATA: s1Data,
+          S1_PREGADOR: s1Pregador,
+          S2_DATA: s2Data,
+          S2_PREGADOR: s2Pregador,
+          S3_DATA: s3Data,
+          S3_PREGADOR: s3Pregador,
+          S4_DATA: s4Data,
+          S4_PREGADOR: s4Pregador,
+          S5_DATA: s5Data,
+          S5_PREGADOR: s5Pregador,
+        },
+        { where: { TELA: dia } }
+      )
 
-    res.send('Dados atualizados com sucesso!');
-  } catch (error) {
-    console.error('Erro na atualização de pregadores:', error);
-    res.status(500).send('Internal Server Error');
+      res.send('Dados atualizados com sucesso!')
+    } catch (error) {
+      console.error('Erro na atualização de pregadores:', error)
+      res.status(500).send('Internal Server Error')
+    }
   }
-});
+)
 
 app.post('/atualizar-musicas/:tela', verificaAutorizacao, async (req, res) => {
-  const tela = req.params.tela;
+  const tela = req.params.tela
 
   try {
     // Obtenha os dados do corpo da requisição
@@ -765,7 +773,7 @@ app.post('/atualizar-musicas/:tela', verificaAutorizacao, async (req, res) => {
       s5Data,
       s5Ministrante,
       s5Musicas,
-    } = req.body;
+    } = req.body
 
     // Atualize os registros no banco de dados
     await ministrar.update(
@@ -787,15 +795,15 @@ app.post('/atualizar-musicas/:tela', verificaAutorizacao, async (req, res) => {
         S5_MUSICA: s5Musicas,
       },
       { where: { TELA: tela } }
-    );
+    )
 
-    res.send('Dados da playlist atualizados com sucesso!');
+    res.send('Dados da playlist atualizados com sucesso!')
   } catch (error) {
-    console.error('Erro na atualização de dados:', error);
-    res.status(500).send('Erro na atualização de dados');
+    console.error('Erro na atualização de dados:', error)
+    res.status(500).send('Erro na atualização de dados')
   }
-});
+})
 
 app.listen(porta, function () {
-  console.log(`Servidor rodando em http://localhost:` + porta);
-});
+  console.log(`Servidor rodando em http://localhost:` + porta)
+})

@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
   loginForm.addEventListener('submit', async function (event) {
     event.preventDefault();
 
+    errorMessageElement.textContent = ''
+
     const formData = new FormData(loginForm);
     const usuario = formData.get('usuario');
     const senha = formData.get('senha');

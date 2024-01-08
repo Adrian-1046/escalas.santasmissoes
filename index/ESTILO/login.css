@@ -13,7 +13,7 @@
 :root {
   --temp: #8c6a03;
 
-  --color-bg: #1E2C5C;
+  --color-bg: #1e2c5c;
   --color-bg-transparent: #1e2c5ced;
   --color-bg-variant-light: #1e88db;
   --color-bg-variant-dark: #0e152c;
@@ -23,15 +23,14 @@
   --color-primary-variant-light: #8c6a03;
   --color-primary-variant-dark: #b88a00;
 
-  --color-secondary: #A8202E;
-  --color-secondary-dark: #600E22;
+  --color-secondary: #a8202e;
+  --color-secondary-dark: #600e22;
 
   --color-white: #ffffff;
   --color-light: rgba(255, 255, 255, 0.6);
 
   --color-black: #000000;
 
-  
   --transition: all 400ms ease;
   /*
   * #A8202E  #600E22  #961C59  #DA3C32
@@ -150,6 +149,18 @@ img {
   }
 }
 
+#error-message:not(:empty) {
+  color: red;
+  font-size: 1.5rem;
+  text-align: center;
+  background: var(--color-black);
+  border-radius: 1rem;
+  margin-top: 1.5rem;
+  border: 1px solid;
+  padding: 0.5rem;
+  transition: var(--transition);
+}
+
 /* #####################  MEDIA QUERIES - MEDIUM DEVICES ######################*/
 
 @media screen and (max-width: 1024px) {
@@ -167,7 +178,6 @@ img {
     margin-bottom: 2rem;
   }
 }
-
 
 html {
   background: url('../login-bg.jpeg');
@@ -290,8 +300,4 @@ section {
       }
     }
   }
-
-  
-
 }
-

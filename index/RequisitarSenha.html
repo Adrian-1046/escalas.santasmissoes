@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solicitar Senha</title>
+  <link rel="icon" href="./fav-icon.png" type="image/x-icon" />
+  <link rel="shortcut icon" href="./fav-icon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="./ESTILO/login.css">
+</head>
+<body>
+  <section class="login">
+    <div class="login__image">
+      <img src='./login-logo.png' alt="login-bg" />
+    </div>
+
+    <div class="login__form">
+      <form id="loginForm">
+        <h2>SOLICITAR SENHA</h2>
+
+        <h3>USUÁRIO</h3>
+        <input type="text" id="usuario" name="usuario" placeholder="Seu usuário" />
+        <br />
+<button class="btn-primary">
+  <a id="invisible-a" href="#" onclick="solicitarSenha()">Solicitar</a>
+</button>
+      
+      </form>
+     
+    </div>
+    <a style="font-size: 1.5rem;" id="acesso" href="/">Voltar</a>
+  </section>
+  <script>
+    function solicitarSenha() {
+      var usuario = document.getElementById("usuario").value;
+      var mensagem = encodeURIComponent("Preciso da senha para o usuário: " + usuario);
+      var linkWhatsapp = "https://api.whatsapp.com/send?phone=5547988903072&text=" + mensagem;
+
+      window.open(linkWhatsapp, "_blank", "noopener");
+    }
+  </script>
+</body>
+</html>

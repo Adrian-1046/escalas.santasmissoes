@@ -84,6 +84,8 @@ function mostrarTabela(tab, tela) {
   }
 
   tabela(tabelaPathLink, tela, tab)
+
+  buscarDadosDoServidorEscalas(tela, tab)
 }
 
 function mostrarLoading() {

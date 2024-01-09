@@ -750,6 +750,6 @@ app.post('/verificar', verificaAutorizacao, function (req, res) {
   res.send('Informações atualizadas com sucesso!')
 })
 
-app.listen(porta, function () {
+app.listen(process.env.MSQLPORT ?? porta, function () {
   console.log(`Servidor rodando em http://localhost:` + porta)
 })

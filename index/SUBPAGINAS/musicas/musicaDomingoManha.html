@@ -1,0 +1,52 @@
+  <section class="section__tabelas">
+    <form onsubmit="event.preventDefault(); atualizarMusicas('DomingoManha');">
+      <h3 class="tabela-selecao">SELECIONE A DATA</h3>
+      <div class="tabela-datas">
+        <a
+          href="#S1_data"
+          class="data active"
+          id="S1"
+          onclick="abrirMusicas('S1', 'DomingoManha')"
+          ><h3 id="S1_data"></h3
+        ></a>
+        <a
+          href="#S2_data"
+          class="data"
+          id="S2"
+          onclick="abrirMusicas('S2', 'DomingoManha')"
+          ><h3 id="S2_data"></h3
+        ></a>
+        <a
+          href="#S3_data"
+          class="data"
+          id="S3"
+          onclick="abrirMusicas('S3', 'DomingoManha')"
+          ><h3 id="S3_data"></h3
+        ></a>
+        <a
+          href="#S4_data"
+          class="data"
+          id="S4"
+          onclick="abrirMusicas('S4', 'DomingoManha')"
+          ><h3 id="S4_data"></h3
+        ></a>
+        <a
+          href="#S5_data"
+          class="data"
+          id="S5"
+          onclick="abrirMusicas('S5', 'DomingoManha')"
+          ><h3 id="S5_data"></h3
+        ></a>
+      </div>
+  
+      <h5 class="text-light">Playlist de Músicas</h5>
+      <h1 class="sunday-heading">DOMINGO MANHÃ</h1>
+  
+      <div id="tabela"></div>
+  
+      <a href="inicio">Fechar</a>
+  
+    </form>
+  </section>
+  <script src="./../../SCRIPT/Musicas.js"></script>
+</form>

@@ -4,7 +4,7 @@ const banco = require('./../../banco')
 const escalar = banco.define(
   'ESCALAS',
   {
-    id: {
+    ID: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,

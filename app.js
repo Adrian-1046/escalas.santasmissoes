@@ -1252,6 +1252,6 @@ app.post('/verificar', verificaAutorizacao, function (req, res) {
   console.log(`Servidor rodando em http://localhost:` + porta)
 }) */
 
-app.listen(/* process.env.MSQLPORT ?? */ porta, function () {
+app.listen( process.env.MSQLPORT ?? porta, function () {
   console.log(`Servidor rodando em http://localhost:` + porta)
 })

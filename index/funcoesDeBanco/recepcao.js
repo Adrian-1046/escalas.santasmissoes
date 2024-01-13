@@ -4,7 +4,7 @@ const banco = require('./../../banco');
 const recepcionar = banco.define(
   'RECEPCIONISTAS',
   {
-    id: {
+    ID: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,

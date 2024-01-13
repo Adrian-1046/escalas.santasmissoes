@@ -4,7 +4,7 @@ const banco = require('./../../banco');
 const pregar = banco.define(
   'PREGADORES',
   {
-    id: {
+    ID: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,

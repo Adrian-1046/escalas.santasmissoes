@@ -4,11 +4,12 @@ const banco = require('./../../banco');
 const sugerir = banco.define(
   'SUGESTOES',
   {
-    ID_USUARIO: {
+    ID: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
+    ID_USUARIO: Sequelize.INTEGER,
     USUARIO: Sequelize.STRING,
     SUGESTAO: Sequelize.STRING,
     DATA: {

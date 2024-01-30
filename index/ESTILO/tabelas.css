@@ -115,7 +115,7 @@
   justify-content: center;}
 }
 
-@media screen and (max-width: 400px){
+@media screen and (max-width: 330px){
   .tabela-datas 
  { 
   font-size: 1rem;

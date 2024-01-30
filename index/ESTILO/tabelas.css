@@ -108,14 +108,14 @@
   }
 }
 
-@media screen and (max-width: 350px){
+@media screen and (max-width: 440px){
   .tabela-datas 
  { display: flex;
   gap: 0.5rem;
   justify-content: center;}
 }
 
-@media screen and (max-width: 325px){
+@media screen and (max-width: 400px){
   .tabela-datas 
  { 
   font-size: 1rem;

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="icon" href="./fav-icon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="./fav-icon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./ESTILO/login.css" />
+  </head>
+  <body>
+    <section class="login">
+      <div class="login__image">
+        <img src="./login-logo.png" alt="login-bg" />
+      </div>
+
+      <div class="login__form">
+        <form id="loginForm" action="/login" method="post">
+          <h2>LOGIN</h2>
+
+          <h3>USUÁRIO</h3>
+          <input type="text" name="usuario" placeholder="Seu usuário" />
+          <br />
+
+          <h3>SENHA</h3>
+          <input type="password" name="senha" placeholder="Sua senha" />
+          <br />
+          <button class="btn-primary" value="Login" type="submit">
+            Entrar
+          </button>
+        </form>
+
+        <div id="error-message"></div>
+
+        <p>
+          Este é um sistema fechado
+          <br />
+          <br />
+          Caso você ainda não tenha as credenciais para fazer o login
+          <br />
+          entre em contato com a liderança da igreja
+        </p>
+
+        <a href="/requisitar-senha">Esqueci minha sennha</a>
+      </div>
+    </section>
+
+    <script src="./SCRIPT/erroLogin.js"></script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+
+#container {
+  padding: 1rem;
+}
+
+#suggestion-box {
+  margin-top: 1rem;
+  border: 1px solid var(--color-primary);
+  padding: 1rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+}
+
+#submit-button {
+  background: var(--color-primary);
+  color: var(--color-bg);
+  border: 1px solid transparent;
+  transition: var(--transition);
+  padding: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+
+  &&:hover {
+    border-color: var(--color-white);
+    background-color: var(--color-primary-variant-dark);
+    color: var(--color-white);
+  }
+}
+

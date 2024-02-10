@@ -1,5 +1,3 @@
-const porta = 1050
-
 const express = require('express')
 const session = require('express-session')
 const app = express()
@@ -1248,10 +1246,6 @@ app.post('santasmissões.com/verificar', verificaAutorizacao, function (req, res
   res.send('Informações atualizadas com sucesso!')
 })
 
-/* app.listen(porta, function () {
-  console.log(`Servidor rodando em http://localhost:` + porta)
-}) */
-
-app.listen( process.env.MSQLPORT ?? porta, function () {
+app.listen('santasmissões.com', function () {
   console.log(`Servidor rodando em santasmissões.com`)
 })

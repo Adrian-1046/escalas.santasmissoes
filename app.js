@@ -16,7 +16,7 @@ const { Sequelize, QueryTypes } = require('sequelize')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static(__dirname + '/index'))
+//app.use(express.static(__dirname + '/index'))
 app.use(
   session({
     secret: 'fGHwv$LwR#K!qZ7p&2s@8oU',
@@ -27,9 +27,9 @@ app.use(
 
 function verificaAutenticacao(req, res, next) {
   if (req.session && req.session.usuario) {
-    return next() // Continue para a próxima rota/middleware
+    return next()
   } else {
-    res.redirect('/') // Redirecione para a página de login se não estiver autenticado
+    res.redirect('/') 
   }
 }
 

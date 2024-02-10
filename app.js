@@ -1246,6 +1246,6 @@ app.post('santasmissões.com/verificar', verificaAutorizacao, function (req, res
   res.send('Informações atualizadas com sucesso!')
 })
 
-app.listen('santasmissões.com', function () {
-  console.log(`Servidor rodando em santasmissões.com`)
+app.listen(80, 'www.santasmissões.com', () => {
+  console.log('API server is running on www.santasmissões.com');
 })

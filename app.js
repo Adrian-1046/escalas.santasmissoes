@@ -33,7 +33,7 @@ function verificaAutenticacao(req, res, next) {
   }
 }
 
-app.post('santasmissões.com/whoami', function (req, res) {
+app.post('/whoami', function (req, res) {
   res.send(req.session.ACESSO)
 })
 
@@ -90,7 +90,7 @@ function verificaAutorizacaoREC(req, res, next) {
 }
 
 app.get(
-  'santasmissões.com/cadastro',
+  '/cadastro',
   verificaAutenticacao,
   verificaAutorizacaoMST,
   function (req, res) {
@@ -98,24 +98,24 @@ app.get(
   }
 )
 
-app.get('santasmissões.com/inicio', verificaAutenticacao, function (req, res) {
+app.get('/inicio', verificaAutenticacao, function (req, res) {
   res.sendFile(__dirname + '/index/MENU.html')
 })
 
-app.get('santasmissões.com/', function (req, res) {
+app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index/LOGIN.html')
 })
 
-app.get('santasmissões.com/requisitar-senha', function (req, res) {
+app.get('/requisitar-senha', function (req, res) {
   res.sendFile(__dirname + '/index/RequisitarSenha.html')
 })
 
-app.get('santasmissões.com/adm', verificaAutenticacao, verificaAutorizacao, function (req, res) {
+app.get('/adm', verificaAutenticacao, verificaAutorizacao, function (req, res) {
   res.sendFile(__dirname + '/index/ADM.html')
 })
 
 app.get(
-  'santasmissões.com/acesso',
+  '/acesso',
   verificaAutenticacao,
   verificaAutorizacaoMST,
   function (req, res) {
@@ -123,12 +123,12 @@ app.get(
   }
 )
 
-app.get('santasmissões.com/sucesso', function (req, res) {
+app.get('/sucesso', function (req, res) {
   res.render('sucesso', { mensagem: 'Sugestão gravada com sucesso!' })
 })
 
 app.get(
-  'santasmissões.com/inicio/pregadores/:tela',
+  '/inicio/pregadores/:tela',
   verificaAutenticacao,
   verificaAutorizacaoPGD,
   async (req, res) => {
@@ -178,7 +178,7 @@ app.get(
 )
 
 app.get(
-  'santasmissões.com/inicio/recepcionistas/:tela',
+  '/inicio/recepcionistas/:tela',
   verificaAutenticacao,
   verificaAutorizacaoREC,
   async (req, res) => {
@@ -226,7 +226,7 @@ app.get(
   }
 )
 
-app.post('santasmissões.com/atualizar-escalas/:tela', verificaAutorizacao, async (req, res) => {
+app.post('/atualizar-escalas/:tela', verificaAutorizacao, async (req, res) => {
   const tela = req.params.tela
 
   try {
@@ -371,7 +371,7 @@ app.post('santasmissões.com/atualizar-escalas/:tela', verificaAutorizacao, asyn
 })
 
 app.get(
-  'santasmissões.com/inicio/escalas/:tela/:dia',
+  '/inicio/escalas/:tela/:dia',
   verificaAutenticacao,
   verificaAutorizacaoMIN,
   async (req, res) => {
@@ -425,7 +425,7 @@ app.get(
 )
 
 app.get(
-  'santasmissões.com/inicio/musicas/:tela/:dia',
+  '/inicio/musicas/:tela/:dia',
   verificaAutenticacao,
   async (req, res) => {
     const tela = req.params.tela
@@ -469,7 +469,7 @@ app.get(
 )
 
 app.get(
-  'santasmissões.com/adm-sugestoes',
+  '/adm-sugestoes',
   verificaAutenticacao,
   verificaAutorizacaoMST,
   async (req, res) => {
@@ -481,7 +481,7 @@ app.get(
     }
   }
 )
-app.get('santasmissões.com/obter-sugestoes', verificaAutorizacaoMST, async (req, res) => {
+app.get('/obter-sugestoes', verificaAutorizacaoMST, async (req, res) => {
   try {
     const sugestoes = await sugerir.findAll()
 
@@ -502,7 +502,7 @@ app.get('santasmissões.com/obter-sugestoes', verificaAutorizacaoMST, async (req
   }
 })
 
-app.get('santasmissões.com/preencher-tabelas', verificaAutorizacao, async (req, res) => {
+app.get('/preencher-tabelas', verificaAutorizacao, async (req, res) => {
   try {
     res.sendFile(__dirname + '/index/Menu-adm/MENU-ADM.html')
   } catch (error) {
@@ -513,7 +513,7 @@ app.get('santasmissões.com/preencher-tabelas', verificaAutorizacao, async (req,
 //#############################################################
 
 app.get(
-  'santasmissões.com/inicio/pregadores-ADM/:tela',
+  '/inicio/pregadores-ADM/:tela',
   verificaAutorizacao,
   async (req, res) => {
     const tela = req.params.tela
@@ -565,7 +565,7 @@ app.get(
 )
 
 app.get(
-  'santasmissões.com/inicio/recepcionistas-ADM/:tela',
+  '/inicio/recepcionistas-ADM/:tela',
   verificaAutorizacao,
   async (req, res) => {
     const tela = req.params.tela
@@ -617,7 +617,7 @@ app.get(
 )
 
 app.post(
-  'santasmissões.com/atualizar-escalas-ADM/:tela',
+  '/atualizar-escalas-ADM/:tela',
   verificaAutorizacao,
   async (req, res) => {
     const tela = req.params.tela
@@ -764,7 +764,7 @@ app.post(
   }
 )
 
-app.get('santasmissões.com/inicio/escalas-ADM/:tela', verificaAutorizacao, async (req, res) => {
+app.get('/inicio/escalas-ADM/:tela', verificaAutorizacao, async (req, res) => {
   const tela = req.params.tela
 
   try {
@@ -852,7 +852,7 @@ app.get('santasmissões.com/inicio/escalas-ADM/:tela', verificaAutorizacao, asyn
 })
 
 app.post(
-  'santasmissões.com/atualizar-recepcionistas-ADM/:dia',
+  '/atualizar-recepcionistas-ADM/:dia',
   verificaAutorizacao,
   async (req, res) => {
     try {
@@ -897,7 +897,7 @@ app.post(
 
 // app.js
 app.post(
-  'santasmissões.com/atualizar-pregadores-ADM/:dia',
+  '/atualizar-pregadores-ADM/:dia',
   verificaAutorizacao,
   async (req, res) => {
     try {
@@ -942,7 +942,7 @@ app.post(
 
 //############################################################3
 
-app.get('santasmissões.com/remover-usuario', verificaAutorizacaoMST, async (req, res) => {
+app.get('/remover-usuario', verificaAutorizacaoMST, async (req, res) => {
   try {
     const usuario = decodeURIComponent(req.query.usuario)
 
@@ -952,14 +952,14 @@ app.get('santasmissões.com/remover-usuario', verificaAutorizacaoMST, async (req
       },
     })
 
-    res.redirect('santasmissões.com/acesso')
+    res.redirect('/acesso')
   } catch (error) {
     console.error('Erro ao remover usuario:', error)
     res.status(500).send('Erro ao remover usuario do servidor')
   }
 })
 
-app.get('santasmissões.com/remover-sugestao', verificaAutorizacaoMST, async (req, res) => {
+app.get('/remover-sugestao', verificaAutorizacaoMST, async (req, res) => {
   try {
     const sugestao = decodeURIComponent(req.query.sugestao)
 
@@ -969,14 +969,14 @@ app.get('santasmissões.com/remover-sugestao', verificaAutorizacaoMST, async (re
       },
     })
 
-    res.redirect('santasmissões.com/adm-sugestoes')
+    res.redirect('/adm-sugestoes')
   } catch (error) {
     console.error('Erro ao remover sugestão:', error)
     res.status(500).send('Erro ao remover sugestão do servidor')
   }
 })
 
-app.post('santasmissões.com/cadastrar', verificaAutorizacao, function (req, res) {
+app.post('/cadastrar', verificaAutorizacao, function (req, res) {
   tbUsuarios
     .create({
       USUARIO: req.body.usuario.toUpperCase().replace(/\s/g, ''),
@@ -985,7 +985,7 @@ app.post('santasmissões.com/cadastrar', verificaAutorizacao, function (req, res
       ATIVO: 'SIM',
     })
     .then(function () {
-      res.redirect('santasmissões.com/cadastro')
+      res.redirect('/cadastro')
     })
     .catch(function (erro) {
       res.send(
@@ -996,7 +996,7 @@ app.post('santasmissões.com/cadastrar', verificaAutorizacao, function (req, res
     })
 })
 
-app.post('santasmissões.com/login', async function (req, res) {
+app.post('/login', async function (req, res) {
   try {
     const user = await tbUsuarios.findOne({
       where: Sequelize.or(
@@ -1027,7 +1027,7 @@ app.post('santasmissões.com/login', async function (req, res) {
   }
 })
 
-app.post('santasmissões.com/logout', function (req, res) {
+app.post('/logout', function (req, res) {
   req.session.destroy(function (err) {
     if (err) {
       console.error('Erro ao destruir a sessão:', err)
@@ -1038,7 +1038,7 @@ app.post('santasmissões.com/logout', function (req, res) {
   })
 })
 
-app.post('santasmissões.com/inicio', async function (req, res) {
+app.post('/inicio', async function (req, res) {
   try {
     await sugerir.create({
       ID: req.session.ID,
@@ -1055,7 +1055,7 @@ app.post('santasmissões.com/inicio', async function (req, res) {
   }
 })
 
-app.post('santasmissões.com/acesso', async function (req, res) {
+app.post('/acesso', async function (req, res) {
   try {
     const consultaUsuario = req.body.usuario
 
@@ -1076,7 +1076,7 @@ app.post('santasmissões.com/acesso', async function (req, res) {
   }
 })
 
-app.post('santasmissões.com/atualizar-usuario', verificaAutorizacao, async function (req, res) {
+app.post('/atualizar-usuario', verificaAutorizacao, async function (req, res) {
   try {
     const { USUARIO, EMAIL, SENHA, CARGO, ATIVO, TELEFONE, ACESSO } = req.body
 
@@ -1094,7 +1094,7 @@ app.post('santasmissões.com/atualizar-usuario', verificaAutorizacao, async func
       }
     )
 
-    res.redirect('santasmissões.com/acesso')
+    res.redirect('/acesso')
   } catch (error) {
     console.error('Erro na atualização de usuário:', error)
     res.status(500).send('Internal Server Error')
@@ -1102,7 +1102,7 @@ app.post('santasmissões.com/atualizar-usuario', verificaAutorizacao, async func
 })
 
 app.post(
-  'santasmissões.com/atualizar-recepcionistas/:dia',
+  '/atualizar-recepcionistas/:dia',
   verificaAutorizacao,
   async (req, res) => {
     try {
@@ -1147,7 +1147,7 @@ app.post(
 
 // app.js
 app.post(
-  'santasmissões.com/atualizar-pregadores/:dia',
+  '/atualizar-pregadores/:dia',
   verificaAutorizacao,
   async (req, res) => {
     try {
@@ -1190,7 +1190,7 @@ app.post(
   }
 )
 
-app.post('santasmissões.com/atualizar-musicas/:tela', verificaAutorizacao, async (req, res) => {
+app.post('/atualizar-musicas/:tela', verificaAutorizacao, async (req, res) => {
   const tela = req.params.tela
 
   try {
@@ -1242,7 +1242,7 @@ app.post('santasmissões.com/atualizar-musicas/:tela', verificaAutorizacao, asyn
   }
 })
 
-app.post('santasmissões.com/verificar', verificaAutorizacao, function (req, res) {
+app.post('/verificar', verificaAutorizacao, function (req, res) {
   res.send('Informações atualizadas com sucesso!')
 })
 

@@ -152,7 +152,6 @@ function buscarDadosDoServidorEscalas(tela, dia) {
       })
       .catch(error => {
         console.error('Erro na busca de dados:', error)
-        buscarDadosDoServidorEscalas(tela, dia)
       })
       .finally(() => {
         ocultarLoading()

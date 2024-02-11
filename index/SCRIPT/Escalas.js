@@ -120,7 +120,6 @@ function buscarDadosDoServidorEscalas(tela, dia) {
     fetch(`/inicio/escalas/${tela}/${dia}`, { timeout: 50000 })
       .then(response => {
         if (!response.ok) {
-          buscarDadosDoServidorEscalas(tela, dia)
         }
         return response.text()
       })
@@ -152,6 +151,7 @@ function buscarDadosDoServidorEscalas(tela, dia) {
       })
       .catch(error => {
         console.error('Erro na busca de dados:', error)
+        buscarDadosDoServidorEscalas(tela, dia)
       })
       .finally(() => {
         ocultarLoading()

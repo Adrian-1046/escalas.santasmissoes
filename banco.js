@@ -8,11 +8,11 @@ require('dotenv').config();
 const Sequelize = require('sequelize');
 
 const banco = new Sequelize(
-  quoteIdentifiers: false,
   process.env.MSQLDBAS,
   process.env.MSQLUSER,
   process.env.MSQLPASS,
   {
+    quoteIdentifiers: false,
     host: process.env.MSQLHOST,
     port: process.env.MSQLPORT,
      dialect: 'postgres',

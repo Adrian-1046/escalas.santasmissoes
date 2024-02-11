@@ -159,7 +159,6 @@ function buscarDadosDoServidorEscalas(tela, dia) {
       })
   } catch (error) {
     console.error('Erro:', error)
-    buscarDadosDoServidorEscalas(tela, dia)
     ocultarLoading()
   }
 }

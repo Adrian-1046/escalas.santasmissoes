@@ -152,14 +152,49 @@ function buscarDadosDoServidorEscalas(tela, dia) {
       .catch(error => {
         console.error('Erro na busca de dados:', error)
         
+      }).then(() => {
+        fetch(`/inicio/escalas/${tela}/${dia}`, { timeout: 50000 })
+      .then(response => {
+        if (!response.ok) {
+        }
+        return response.text()
       })
-      .finally(() => {
+      .then(dados => {
+        const dadosArray = dados.split(';')
+
+        const colunas = 16
+        const totalDados = dadosArray.length
+        const totalLinhas = totalDados / colunas
+
+        for (let i = 0; i < totalLinhas; i++) {
+          document.getElementById(`S1_data`).innerText = dadosArray[0]
+          document.getElementById(`S2_data`).innerText = dadosArray[1]
+          document.getElementById(`S3_data`).innerText = dadosArray[2]
+          document.getElementById(`S4_data`).innerText = dadosArray[3]
+          document.getElementById(`S5_data`).innerText = dadosArray[4]
+          document.getElementById(`${dia}_Ministro`).innerText = dadosArray[5]
+          document.getElementById(`${dia}_Violão`).innerText = dadosArray[6]
+          document.getElementById(`${dia}_Baixo`).innerText = dadosArray[7]
+          document.getElementById(`${dia}_Teclado`).innerText = dadosArray[8]
+          document.getElementById(`${dia}_Bateria`).innerText = dadosArray[9]
+          document.getElementById(`${dia}_Guitarra`).innerText = dadosArray[10]
+          document.getElementById(`${dia}_Back_1`).innerText = dadosArray[11]
+          document.getElementById(`${dia}_Back_2`).innerText = dadosArray[12]
+          document.getElementById(`${dia}_Back_3`).innerText = dadosArray[13]
+          document.getElementById(`${dia}_Mídia`).innerText = dadosArray[14]
+          document.getElementById(`${dia}_Som`).innerText = dadosArray[15]
+        }
+      })
+      .catch(error => {
+        console.error('Erro na busca de dados:', error)
+        
+      })
+      }).finally(() => {
         ocultarLoading()
       })
   } catch (error) {
     console.error('Erro:', error)
     ocultarLoading()
-    buscarDadosDoServidorEscalas(tela, dia)
   }
 }
 

@@ -158,7 +158,7 @@ function buscarDadosDoServidorPregadores(tela) {
       .catch(error => {
         console.error('Erro na busca de dados:', error)
       })
-      )}.finally(() => {
+      }).finally(() => {
         ocultarLoading()
       })
   } catch (error) {

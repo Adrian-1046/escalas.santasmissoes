@@ -96,7 +96,7 @@ function atualizarRecepcionista(dia) {
 
 function buscarDadosDoServidorRecepcionistas(tela) {
   try {
-    mostrarLoading();
+    mostrarLoading()
     
     fetch(`/inicio/recepcionistas/${tela}`, { timeout: 50000 })
       .then(response => {
@@ -132,7 +132,7 @@ function buscarDadosDoServidorRecepcionistas(tela) {
       .catch(error => {
         console.error('Erro na busca de dados:', error);
         
-      })then(() => {
+      }).then(() => {
       fetch(`/inicio/recepcionistas/${tela}`, { timeout: 50000 })
       .then(response => {
      

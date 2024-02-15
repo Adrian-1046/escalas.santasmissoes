@@ -130,6 +130,40 @@ function buscarDadosDoServidorRecepcionistasADM(tela) {
       .catch(error => {
         console.error('Erro na busca de dados:', error)
       })
+      .then(() => {
+        fetch(`/inicio/recepcionistas-ADM/${tela}`, { timeout: 50000 })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(
+            `Erro na busca de dados: ${response.status} ${response.statusText}`
+          )
+        }
+        return response.text()
+      })
+      .then(dados => {
+        const dadosArray = dados.split(';')
+
+        // Atualize as células da tabela com os dados recebidos
+        const colunas = 2
+        const totalDados = dadosArray.length
+        const totalLinhas = totalDados / colunas
+
+        for (let i = 0; i < totalLinhas; i++) {
+          const dataCell = document.getElementById(`s${i + 1}_data`)
+          const recepcionistaCell = document.getElementById(
+            `s${i + 1}_recepcionista`
+          )
+
+          if (dataCell && recepcionistaCell) {
+            dataCell.innerText = dadosArray[i * colunas]
+            recepcionistaCell.innerText = dadosArray[i * colunas + 1]
+          }
+        }
+      })
+      .catch(error => {
+        console.error('Erro na busca de dados:', error)
+      })
+      })
       .finally(() => {
         ocultarLoadingADM()
       })

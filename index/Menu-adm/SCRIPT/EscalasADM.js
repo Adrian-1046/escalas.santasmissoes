@@ -148,6 +148,54 @@ function buscarDadosDoServidorEscalasADM(tela) {
       .catch(error => {
         console.error('Erro na busca de dados:', error)
       })
+      .then(() => {
+        fetch(`/inicio/escalas-ADM/${tela}`, { timeout: 50000 })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(
+            `Erro na busca de dados: ${response.status} ${response.statusText}`
+          )
+        }
+        return response.text()
+      })
+      .then(dados => {
+        const dadosArray = dados.split(';')
+
+        const colunas = 12
+        const totalDados = dadosArray.length
+        const totalLinhas = totalDados / colunas
+
+        for (let i = 0; i < totalLinhas; i++) {
+          document.getElementById(`S${i + 1}_data`).textContent =
+            dadosArray[i * colunas + 0]
+          document.getElementById(`S${i + 1}_Ministro`).textContent =
+            dadosArray[i * colunas + 1]
+          document.getElementById(`S${i + 1}_Violão`).textContent =
+            dadosArray[i * colunas + 2]
+          document.getElementById(`S${i + 1}_Baixo`).textContent =
+            dadosArray[i * colunas + 3]
+          document.getElementById(`S${i + 1}_Teclado`).textContent =
+            dadosArray[i * colunas + 4]
+          document.getElementById(`S${i + 1}_Bateria`).textContent =
+            dadosArray[i * colunas + 5]
+          document.getElementById(`S${i + 1}_Guitarra`).textContent =
+            dadosArray[i * colunas + 6]
+          document.getElementById(`S${i + 1}_Back_1`).textContent =
+            dadosArray[i * colunas + 7]
+          document.getElementById(`S${i + 1}_Back_2`).textContent =
+            dadosArray[i * colunas + 8]
+          document.getElementById(`S${i + 1}_Back_3`).textContent =
+            dadosArray[i * colunas + 9]
+          document.getElementById(`S${i + 1}_Mídia`).textContent =
+            dadosArray[i * colunas + 10]
+          document.getElementById(`S${i + 1}_Som`).textContent =
+            dadosArray[i * colunas + 11]
+        }
+      })
+      .catch(error => {
+        console.error('Erro na busca de dados:', error)
+      })
+      })
       .finally(() => {
         ocultarLoadingADM()
       })

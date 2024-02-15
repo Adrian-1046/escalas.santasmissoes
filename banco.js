@@ -15,10 +15,8 @@ const banco = new Sequelize(
     quoteIdentifiers: false,
     host: process.env.MSQLHOST,
     port: process.env.MSQLPORT,
-     dialect: 'postgres',
-    dialectOptions: {
-      ssl: process.env.POSTGRES_SSL === 'true',
-    },
+     dialect: 'mysql',
+
   }
 );
 

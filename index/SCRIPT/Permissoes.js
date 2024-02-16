@@ -41,8 +41,8 @@ function verificarAutorizacao(tipoUsuario) {
       break
 
     case 'USR': //vizualiza tudo, altera nada, não envia sugestão
-      document.getElementById('acessoLideranca').style.display = 'none'
-      document.getElementById('acessoSugestao').style.display = 'none'
+      document.getElementById('acessoPregador').style.display = 'none'
+      document.getElementById('acessoRecepcionista').style.display = 'none'
       document.getElementById('acesso').style.display = 'none'
       break
 

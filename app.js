@@ -1,4 +1,4 @@
-const porta = 1050
+8const porta = 1050
 
 const express = require('express')
 const session = require('express-session')
@@ -1002,8 +1002,7 @@ app.post('/login', async function (req, res) {
   try {
     const user = await tbUsuarios.findOne({
       where: Sequelize.or(
-        { USUARIO: req.body.usuario.toUpperCase().replace(/\s/g, '') },
-        { EMAIL: req.body.usuario }
+        { USUARIO: req.body.usuario.toUpperCase().replace(/\s/g, '') }
       ),
     })
 

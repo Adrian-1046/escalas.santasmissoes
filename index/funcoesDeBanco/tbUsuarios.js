@@ -12,8 +12,6 @@ const tbUsuarios = banco.define(
     USUARIO: Sequelize.STRING,
     SENHA: Sequelize.STRING,
     ACESSO: Sequelize.STRING,
-    TELEFONE: Sequelize.STRING,
-    EMAIL: Sequelize.STRING,
     CARGO: Sequelize.STRING,
     DATA_CADASTRO: {
       type: Sequelize.DATE,

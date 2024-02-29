@@ -59,7 +59,8 @@ function verificaAutorizacaoMIN(req, res, next) {
   if (
     req.session.ACESSO === 'MST' ||
     req.session.ACESSO === 'ADM' ||
-    req.session.ACESSO === 'MIN'
+    req.session.ACESSO === 'MIN' ||
+    req.session.ACESSO === 'USR'
   ) {
     return next()
   } else {

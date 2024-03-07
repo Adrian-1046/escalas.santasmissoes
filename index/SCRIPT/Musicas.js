@@ -74,6 +74,7 @@ function atualizarMusicas(tela) {
 
 function buscarDadosDoServidorMusicas(tela) {
   mostrarLoading();
+
   fetch(`/inicio/musicas/${tela}`, { timeout: 50000 })
     .then(response => {
       if (!response.ok) {
@@ -85,7 +86,7 @@ function buscarDadosDoServidorMusicas(tela) {
     })
     .then(dados => {
       const container = document.querySelector('.musicas_container');
-      container.innerHTML = ''; // Clear previous content from the container
+      container.innerHTML = ''; 
     
       let dia;
       switch (tela) {
@@ -107,11 +108,22 @@ function buscarDadosDoServidorMusicas(tela) {
       }
 
       dados.forEach((dado, index) => {
-        const musica = dado[`MUSICA${dia}`] || ''; // Use default value if null or empty
-        const obs = dado[`OBS${dia}`] || ''; // Use default value if null or empty
-        const link = dado[`LINK${dia}`] || ''; // Use default value if null or empty
+        const data = dado[`DATA${dia}`] || '';
+        const ministrante = dado[`MINISTRANTE${dia}`]
+        const musica = dado[`MUSICA${dia}`] || ''; 
+        const obs = dado[`OBS${dia}`] || ''; 
+        const link = dado[`LINK${dia}`] || ''; 
+
+        dataCell = document.getElementById(`data${dia}`)
+        ministranteCell = document.getElementById(`ministrante${dia}`)
+
+        if (dataCell && ministranteCell) {
+          dataCell.value = data
+          ministranteCell.innerText = ministrante
+        }
     
-        if (musica || obs || link) { // Check if any of the values are not empty
+        if (musica || obs || link) { 
+
           const div = document.createElement('div');
           div.classList.add('musicas');
           div.setAttribute('key', index);
@@ -126,15 +138,21 @@ function buscarDadosDoServidorMusicas(tela) {
           const linkElement = document.createElement('a');
           linkElement.setAttribute('href', link);
           linkElement.textContent = 'Saiba mais';
+          };
     
           div.appendChild(musicaElement);
-          div.appendChild(obsElement);
-          div.appendChild(linkElement);
+          if (obs) {
+            div.appendChild(obsElement);
+          }
+
+          if (link) {
+            div.appendChild(linkElement);
+          }
+          div.appendChild(removeElement);
           container.appendChild(div);
         }
       });
     })
-    
     .finally(() => {
       ocultarLoading();
     })
@@ -143,6 +161,7 @@ function buscarDadosDoServidorMusicas(tela) {
       ocultarLoading();
     });
 }
+
 
 
 

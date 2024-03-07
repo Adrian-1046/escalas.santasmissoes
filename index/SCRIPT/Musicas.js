@@ -86,8 +86,8 @@ function buscarDadosDoServidorMusicas(tela) {
     })
     .then(dados => {
       const container = document.querySelector('.musicas_container');
-      container.innerHTML = ''; 
-    
+      container.innerHTML = '';
+
       let dia;
       switch (tela) {
         case 'DomingoManha':
@@ -109,37 +109,35 @@ function buscarDadosDoServidorMusicas(tela) {
 
       dados.forEach((dado, index) => {
         const data = dado[`DATA${dia}`] || '';
-        const ministrante = dado[`MINISTRANTE${dia}`]
-        const musica = dado[`MUSICA${dia}`] || ''; 
-        const obs = dado[`OBS${dia}`] || ''; 
-        const link = dado[`LINK${dia}`] || ''; 
+        const ministrante = dado[`MINISTRANTE${dia}`];
+        const musica = dado[`MUSICA${dia}`] || '';
+        const obs = dado[`OBS${dia}`] || '';
+        const link = dado[`LINK${dia}`] || '';
 
-        dataCell = document.getElementById(`data${dia}`)
-        ministranteCell = document.getElementById(`ministrante${dia}`)
+        const dataCell = document.getElementById(`data${dia}`);
+        const ministranteCell = document.getElementById(`ministrante${dia}`);
 
         if (dataCell && ministranteCell) {
-          dataCell.value = data
-          ministranteCell.innerText = ministrante
+          dataCell.value = data;
+          ministranteCell.innerText = ministrante;
         }
-    
-        if (musica || obs || link) { 
 
+        if (musica || obs || link) {
           const div = document.createElement('div');
           div.classList.add('musicas');
           div.setAttribute('key', index);
-    
+
           const musicaElement = document.createElement('p');
           musicaElement.innerText = musica;
-    
+
           const obsElement = document.createElement('small');
           obsElement.classList.add('text-light');
           obsElement.innerText = obs;
-    
+
           const linkElement = document.createElement('a');
           linkElement.setAttribute('href', link);
           linkElement.textContent = 'Saiba mais';
-          };
-    
+
           div.appendChild(musicaElement);
           if (obs) {
             div.appendChild(obsElement);
@@ -148,7 +146,7 @@ function buscarDadosDoServidorMusicas(tela) {
           if (link) {
             div.appendChild(linkElement);
           }
-          div.appendChild(removeElement);
+          
           container.appendChild(div);
         }
       });
@@ -161,6 +159,7 @@ function buscarDadosDoServidorMusicas(tela) {
       ocultarLoading();
     });
 }
+
 
 
 

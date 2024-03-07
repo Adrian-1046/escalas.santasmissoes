@@ -118,7 +118,7 @@ function buscarDadosDoServidorMusicas(tela) {
         const ministranteCell = document.getElementById(`ministrante${dia}`);
 
         if (dataCell && ministranteCell) {
-          dataCell.value = data;
+          dataCell.innerText = data;
           ministranteCell.innerText = ministrante;
         }
 

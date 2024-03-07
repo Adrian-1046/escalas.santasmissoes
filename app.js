@@ -427,49 +427,48 @@ app.get(
   }
 )
 
-app.get(
-  '/inicio/musicas/:tela/:dia',
-  verificaAutenticacao,
-  async (req, res) => {
+app.get('/inicio/musicas/:tela/', verificaAutenticacao, async (req, res) => {
+  try {
     const tela = req.params.tela
-    const dia = req.params.dia
-
-    try {
-      const result = await ministrar.findOne({
-        attributes: [
-          `S1_DATA`,
-          `S2_DATA`,
-          `S3_DATA`,
-          `S4_DATA`,
-          `S5_DATA`,
-          `${dia}_MINISTRANTE`,
-          `${dia}_MUSICA`,
-        ],
-        where: { TELA: tela },
-      })
-
-      if (!result) {
-        throw new Error(`Não foram encontrados dados para a tela: ${tela}`)
-      }
-
-      const dados =
-        dia == 'S1'
-          ? `${result.S1_DATA};${result.S2_DATA};${result.S3_DATA};${result.S4_DATA};${result.S5_DATA};${result.S1_MINISTRANTE};${result.S1_MUSICA};`
-          : dia == 'S2'
-          ? `${result.S1_DATA};${result.S2_DATA};${result.S3_DATA};${result.S4_DATA};${result.S5_DATA};${result.S2_MINISTRANTE};${result.S2_MUSICA};`
-          : dia == 'S3'
-          ? `${result.S1_DATA};${result.S2_DATA};${result.S3_DATA};${result.S4_DATA};${result.S5_DATA};${result.S3_MINISTRANTE};${result.S3_MUSICA};`
-          : dia == 'S4'
-          ? `${result.S1_DATA};${result.S2_DATA};${result.S3_DATA};${result.S4_DATA};${result.S5_DATA};${result.S4_MINISTRANTE};${result.S4_MUSICA};`
-          : `${result.S1_DATA};${result.S2_DATA};${result.S3_DATA};${result.S4_DATA};${result.S5_DATA};${result.S5_MINISTRANTE};${result.S5_MUSICA};`
-
-      res.send(dados)
-    } catch (error) {
-      console.error('Erro na busca de dados:', error)
-      res.status(500).send('Erro na busca de dados')
+    let dia
+    switch (tela) {
+      case 'DomingoManha':
+        dia = 'DM'
+        break
+      case 'DomingoNoite':
+        dia = 'DN'
+        break
+      case 'Terca':
+        dia = 'T'
+        break
+      case 'Quarta':
+        dia = 'Q'
+        break
+      default:
+        dia = ''
+        break
     }
+
+    const result = await ministrar.findAll({
+      attributes: [
+        `MINISTRANTE-${dia}`,
+        `DATA-${dia}`,
+        `MUSICA-${dia}`,
+        `LINK-${dia}`,
+        `OBS-${dia}`
+      ]
+    });
+
+    if (!result || result.length === 0) {
+      throw new Error(`Não foram encontrados dados para a tela: ${tela}`)
+    }
+
+    res.json(result)
+  } catch (error) {
+    console.error('Erro na busca de dados:', error)
+    res.status(500).send('Erro na busca de dados')
   }
-)
+});
 
 app.get(
   '/adm-sugestoes',
@@ -1192,57 +1191,331 @@ app.post(
   }
 )
 
-app.post('/atualizar-musicas/:tela', verificaAutorizacao, async (req, res) => {
-  const tela = req.params.tela
+app.post('/remover/:tela/:musica/:link/:obs/mlo', verificaAutorizacao, async (req, res) => {
+  const musica = req.params.musica;
+  const tela = req.params.tela;
+  const link = req.params.link;
+  const obs = req.params.obs;
+
+  let dia;
+  switch (tela) {
+    case 'DomingoManha':
+      dia = '-DM';
+      break;
+    case 'DomingoNoite':
+      dia = '-DN';
+      break;
+    case 'Terca':
+      dia = '-T';
+      break;
+    case 'Quarta':
+      dia = '-Q';
+      break;
+    default:
+      dia = '';
+      break;
+  }
 
   try {
-    // Obtenha os dados do corpo da requisição
-    const {
-      s1Data,
-      s1Ministrante,
-      s1Musicas,
-      s2Data,
-      s2Ministrante,
-      s2Musicas,
-      s3Data,
-      s3Ministrante,
-      s3Musicas,
-      s4Data,
-      s4Ministrante,
-      s4Musicas,
-      s5Data,
-      s5Ministrante,
-      s5Musicas,
-    } = req.body
+    let whereClause = {};
+    whereClause[`MUSICA${dia}`] = musica;
+    whereClause[`LINK${dia}`] = link;
+    whereClause[`OBS${dia}`] = obs;
 
-    // Atualize os registros no banco de dados
-    await ministrar.update(
-      {
-        S1_DATA: s1Data,
-        S1_MINISTRANTE: s1Ministrante,
-        S1_MUSICA: s1Musicas,
-        S2_DATA: s2Data,
-        S2_MINISTRANTE: s2Ministrante,
-        S2_MUSICA: s2Musicas,
-        S3_DATA: s3Data,
-        S3_MINISTRANTE: s3Ministrante,
-        S3_MUSICA: s3Musicas,
-        S4_DATA: s4Data,
-        S4_MINISTRANTE: s4Ministrante,
-        S4_MUSICA: s4Musicas,
-        S5_DATA: s5Data,
-        S5_MINISTRANTE: s5Ministrante,
-        S5_MUSICA: s5Musicas,
-      },
-      { where: { TELA: tela } }
-    )
+    await ministrar.destroy({
+      where: whereClause
+    });
 
-    res.send('Dados da playlist atualizados com sucesso!')
+    res.status(200).send("Music removed successfully");
   } catch (error) {
-    console.error('Erro na atualização de dados:', error)
-    res.status(500).send('Erro na atualização de dados')
+    console.error('Error while removing music:', error);
+    res.status(500).send("Error while removing music");
   }
-})
+});
+
+app.post('/remover/:tela/:musica/:obs/mo', verificaAutorizacao, async (req, res) => {
+  const musica = req.params.musica;
+  const tela = req.params.tela;
+  const obs = req.params.obs;
+
+  let dia;
+  switch (tela) {
+    case 'DomingoManha':
+      dia = '-DM';
+      break;
+    case 'DomingoNoite':
+      dia = '-DN';
+      break;
+    case 'Terca':
+      dia = '-T';
+      break;
+    case 'Quarta':
+      dia = '-Q';
+      break;
+    default:
+      dia = '';
+      break;
+  }
+
+  try {
+    let whereClause = {};
+    whereClause[`MUSICA${dia}`] = musica;
+    whereClause[`OBS${dia}`] = obs;
+
+    await ministrar.destroy({
+      where: whereClause
+    });
+
+    res.status(200).send("Music removed successfully");
+  } catch (error) {
+    console.error('Error while removing music:', error);
+    res.status(500).send("Error while removing music");
+  }
+});
+
+app.post('/remover/:tela/:link/:obs/lo', verificaAutorizacao, async (req, res) => {
+  const tela = req.params.tela;
+  const link = req.params.link;
+  const obs = req.params.obs;
+
+  let dia;
+  switch (tela) {
+    case 'DomingoManha':
+      dia = '-DM';
+      break;
+    case 'DomingoNoite':
+      dia = '-DN';
+      break;
+    case 'Terca':
+      dia = '-T';
+      break;
+    case 'Quarta':
+      dia = '-Q';
+      break;
+    default:
+      dia = '';
+      break;
+  }
+
+  try {
+    let whereClause = {};
+    whereClause[`LINK${dia}`] = link;
+    whereClause[`OBS${dia}`] = obs;
+
+    await ministrar.destroy({
+      where: whereClause
+    });
+
+    res.status(200).send("Music removed successfully");
+  } catch (error) {
+    console.error('Error while removing music:', error);
+    res.status(500).send("Error while removing music");
+  }
+});
+
+app.post('/remover/:tela/:musica/:link/ml', verificaAutorizacao, async (req, res) => {
+  const musica = req.params.musica;
+  const tela = req.params.tela;
+  const link = req.params.link;
+
+  let dia;
+  switch (tela) {
+    case 'DomingoManha':
+      dia = '-DM';
+      break;
+    case 'DomingoNoite':
+      dia = '-DN';
+      break;
+    case 'Terca':
+      dia = '-T';
+      break;
+    case 'Quarta':
+      dia = '-Q';
+      break;
+    default:
+      dia = '';
+      break;
+  }
+
+  try {
+    let whereClause = {};
+    whereClause[`MUSICA${dia}`] = musica;
+    whereClause[`LINK${dia}`] = link;
+
+    await ministrar.destroy({
+      where: whereClause
+    });
+
+    res.status(200).send("Music removed successfully");
+  } catch (error) {
+    console.error('Error while removing music:', error);
+    res.status(500).send("Error while removing music");
+  }
+});
+
+app.post('/remover/:tela/:musica/m', verificaAutorizacao, async (req, res) => {
+  const musica = req.params.musica;
+  const tela = req.params.tela;
+
+  let dia;
+  switch (tela) {
+    case 'DomingoManha':
+      dia = '-DM';
+      break;
+    case 'DomingoNoite':
+      dia = '-DN';
+      break;
+    case 'Terca':
+      dia = '-T';
+      break;
+    case 'Quarta':
+      dia = '-Q';
+      break;
+    default:
+      dia = '';
+      break;
+  }
+
+  try {
+    let whereClause = {};
+    whereClause[`MUSICA${dia}`] = musica;
+
+    await ministrar.destroy({
+      where: whereClause
+    });
+
+    res.status(200).send("Music removed successfully");
+  } catch (error) {
+    console.error('Error while removing music:', error);
+    res.status(500).send("Error while removing music");
+  }
+});
+
+app.post('/remover/:tela/:link/l', verificaAutorizacao, async (req, res) => {
+  const tela = req.params.tela;
+  const link = req.params.link;
+
+  let dia;
+  switch (tela) {
+    case 'DomingoManha':
+      dia = '-DM';
+      break;
+    case 'DomingoNoite':
+      dia = '-DN';
+      break;
+    case 'Terca':
+      dia = '-T';
+      break;
+    case 'Quarta':
+      dia = '-Q';
+      break;
+    default:
+      dia = '';
+      break;
+  }
+
+  try {
+    let whereClause = {};
+    whereClause[`LINK${dia}`] = link;
+
+    await ministrar.destroy({
+      where: whereClause
+    });
+
+    res.status(200).send("Music removed successfully");
+  } catch (error) {
+    console.error('Error while removing music:', error);
+    res.status(500).send("Error while removing music");
+  }
+});
+
+app.post('/remover/:tela/:obs/o', verificaAutorizacao, async (req, res) => {
+  const tela = req.params.tela;
+  const obs = req.params.obs;
+
+  let dia;
+  switch (tela) {
+    case 'DomingoManha':
+      dia = '-DM';
+      break;
+    case 'DomingoNoite':
+      dia = '-DN';
+      break;
+    case 'Terca':
+      dia = '-T';
+      break;
+    case 'Quarta':
+      dia = '-Q';
+      break;
+    default:
+      dia = '';
+      break;
+  }
+
+  try {
+    let whereClause = {};
+    whereClause[`OBS${dia}`] = obs;
+
+    await ministrar.destroy({
+      where: whereClause
+    });
+
+    res.status(200).send("Music removed successfully");
+  } catch (error) {
+    console.error('Error while removing music:', error);
+    res.status(500).send("Error while removing music");
+  }
+});
+
+
+
+
+app.post('/atualizar-musicas/:tela', verificaAutorizacao, async (req, res) => {
+  const tela = req.params.tela;
+
+  try {
+    const {
+      DATA,
+      MINISTRANTE,
+      MUSICA,
+      LINK,
+      OBS,
+    } = req.body;
+
+    let dia;
+    switch (tela) {
+      case 'DomingoManha':
+        dia = '-DM';
+        break;
+      case 'DomingoNoite':
+        dia = '-DN';
+        break;
+      case 'Terca':
+        dia = '-T';
+        break;
+      case 'Quarta':
+        dia = '-Q';
+        break;
+      default:
+        dia = '';
+        break;
+    }
+
+      await ministrar.create({
+        [`DATA${dia}`]: DATA,
+        [`MINISTRANTE${dia}`]: MINISTRANTE,
+        [`MUSICA${dia}`]: MUSICA,
+        [`LINK${dia}`]: LINK,
+        [`OBS${dia}`]: OBS,
+      });
+    
+
+    res.status(200).send('Registros atualizados com sucesso.');
+  } catch (error) {
+    console.error('Erro ao atualizar registros:', error);
+    res.status(500).send('Erro ao atualizar registros.');
+  }
+});
 
 app.post('/verificar', verificaAutorizacao, function (req, res) {
   res.send('Informações atualizadas com sucesso!')

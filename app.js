@@ -40,7 +40,7 @@ app.post('/whoami', function (req, res) {
 })
 
 function verificaAutorizacao(req, res, next) {
-  if (req.session.ACESSO === 'MST' || req.session.ACESSO === 'ADM') {
+  if (req.session.ACESSO === 'MST' || req.session.ACESSO === 'ADM' || req.session.ACESSO === 'MIN') {
     return next()
   } else {
     res.send(`USUÁRIO SEM ACESSO! Entre em contato com a liderança!`)

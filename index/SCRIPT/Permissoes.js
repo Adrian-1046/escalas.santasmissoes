@@ -25,7 +25,6 @@ function verificarAutorizacao(tipoUsuario) {
     case 'MIN': //ministrante/musico - visualiza escalas, altera músicas
       document.getElementById('acessoPregador').style.display = 'none'
       document.getElementById('acessoRecepcionista').style.display = 'none'
-      document.getElementById('acesso').style.display = 'none'
       break
 
     case 'PGD': //pregadores - visualiza pregadores

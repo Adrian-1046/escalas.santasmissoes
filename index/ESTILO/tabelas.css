@@ -1,0 +1,165 @@
+.tabela-datas {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin-bottom: 5rem;
+  border: 1px solid var(--color-primary);
+  border-radius: 1rem;
+  padding: 1rem;
+
+  .active {
+    color: var(--color-white);
+  }
+}
+
+.section__tabelas {
+  height: auto;
+  margin-top: 1rem;
+  background: var(--color-bg-variant-dark-transparent);
+  text-align: center;
+  cursor: default;
+  padding: 5rem;
+  border-radius: 1rem;
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.8rem;
+  }
+
+  h5 {
+    font-size: 1.8rem;
+    margin-bottom: -1rem;
+  }
+
+  .tabela-selecao {
+    font-size: 2.3rem;
+    font-weight: 600;
+    margin: auto;
+    margin-bottom: -0.8rem;
+    background: var(--color-primary);
+    color: var(--color-bg-variant-dark);
+    width: 33rem;
+    border-radius: 1rem;
+  }
+}
+
+.tabelas {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 5rem;
+
+  p {
+    font-size: 1.5rem;
+    width: 10rem;
+    text-align: center;
+  }
+
+  li {
+    border: 1px solid var(--color-primary);
+    font-size: 1.7rem;
+    background: var(--color-bg-variant-dark);
+    padding: 1rem;
+    border-radius: 1rem;
+    display: grid;
+    justify-content: center;
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    ul li {
+      border: 1px solid var(--color-light);
+      min-height: 5rem;
+    }
+  }
+}
+
+.musicas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--color-primary);
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+  transition: var(--transition);
+
+  &&:hover {
+    background-color: var(--color-bg-variant-dark);
+  }
+
+  audio {
+    border: 1px solid var(--color-white);
+    border-radius: 2.2rem;
+    height: 2.6rem;
+    margin-bottom: 1rem;
+    &&::-webkit-media-controls-panel {
+      background-color: var(--color-primary);
+    }
+
+    &&::-webkit-media-controls-current-time-display,
+    &&::-webkit-media-controls-time-remaining-display {
+      display: none;
+    }
+  
+  }
+
+  
+}
+
+.subtitulo-min{
+  margin-bottom: -2.1rem;
+}
+
+@media screen and (max-width: 1300px) {
+  .tabelas {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .tabelas {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .tabelas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .tabelas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .tabelas {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 440px){
+  .tabela-datas 
+ { display: flex;
+  gap: 0.5rem;
+  justify-content: center;}
+}
+
+@media screen and (max-width: 330px){
+  .tabela-datas 
+ { 
+  font-size: 1rem;
+  flex-direction: column;
+}
+
+.section__tabelas,
+.tabela-selecao{
+  font-size: 1rem;
+}
+}

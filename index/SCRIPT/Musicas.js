@@ -72,7 +72,7 @@ function atualizarMusicas(tela) {
   }
 }
 
-unction buscarDadosDoServidorMusicas(tela) {
+function buscarDadosDoServidorMusicas(tela) {
   mostrarLoading();
 
   fetch(`/inicio/musicas/${tela}`, { timeout: 50000 })

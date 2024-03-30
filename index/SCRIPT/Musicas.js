@@ -110,26 +110,27 @@ function buscarDadosDoServidorMusicas(tela) {
       }
 
       dados.forEach((dado, index) => {
-        const data = dado[`DATA`] || '';
-        const ministrante = dado[`MINISTRO`];
-        const musica = dado[`MUSICA`] || '';
-        const obs = dado[`OBS`] || '';
-        const link = dado[`LINK`] || '';
+        const data = dado[`DATA`]
+        const ministro = dado[`MINISTRO`]
+        const musica = dado[`MUSICA`] 
+        const obs = dado[`OBS`] 
+        const link = dado[`LINK`] 
 
-        const dataCell = document.getElementById(`data${dia}`);
-        const ministranteCell = document.getElementById(`ministrante${dia}`);
-
-        if (dataCell && ministranteCell) {
-          const convert = new Date(data)
+        const convert = new Date(data)
           const dia = convert.getDate();
           const mes = convert.getMonth()+1;
           const fdia = dia < 10 ? '0' + dia : dia;
           const fmes = mes < 10 ? '0' + mes : mes;
           const dataFormatada = fdia + '-' + fmes
 
-          dataCell.innerText = dataFormatada;
-          ministranteCell.innerText = ministrante;
-        }
+        vdata = document.getElementById('data');
+        vdata.innerText = dataFormatada
+
+        vministro = document.getElementById('ministro')
+        vministro.innerText = ministro
+        
+        const dataCell = document.getElementById(`data${dia}`);
+        const ministranteCell = document.getElementById(`ministrante${dia}`);
 
           const div = document.createElement('div');
           div.classList.add('musicas');

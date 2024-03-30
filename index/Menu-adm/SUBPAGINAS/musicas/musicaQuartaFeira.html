@@ -1,0 +1,32 @@
+<section id="musica-adm-form">
+  <h5 class="text-light">Playlist</h5>
+  <h1 class="subtitulo-min">Quarta Feira</h1>
+
+  <h3 class="ministrante" id="ministro" contenteditable="true">
+    <p style="color: red;">Insira seu nome</p>
+  </h3>
+  <h2><input id="data" name="data" type="date" placeholder="dd/mm/aaaa"></h2>
+
+
+  <table>
+    <tr>
+        <th>Música</th>
+        <th>Link</th>
+        <th>Observações</th>
+    </tr>
+    <tr>
+        <td id="musica-Q" contenteditable="true"></td>
+        <td id="link-Q" contenteditable="true"></td>
+        <td id="obs-Q" contenteditable="true"></td>
+    </tr>
+</table>
+        <div id="botao">
+          <button onclick="gravarMusicaADM('Quarta')" class="save-button" id="bSalvarQuarta">Adicionar</button>
+        </div>
+
+        <h1>Músicas registradas</h1>
+        <div class="musicas_container musicas_container-q">
+        </div>
+      
+        <script src="./../../SCRIPT/MusicasADM.js"></script>
+      </section>

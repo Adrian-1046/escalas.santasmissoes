@@ -1,0 +1,50 @@
+<!-- pregadores.html -->
+<form onsubmit="event.preventDefault(); atualizarPregadorADM('Terca');">
+  <h1>Pregadores - TERÇA-FEIRA</h1>
+  <table>
+    <tr>
+      <th>DATA</th>
+      <th>PREGADORES</th>
+    </tr>
+    <tr>
+      <td>
+        <input type="date" name="data" id="s1_data" placeholder="dd/mm/aaaa">
+      </td>
+      <td id="s1_pregador" contenteditable="true"></td>
+    </tr>
+    <tr>
+      <td>
+        <input type="date" name="data" id="s2_data" placeholder="dd/mm/aaaa">
+      </td>
+      <td id="s2_pregador" contenteditable="true"></td>
+    </tr>
+    <tr>
+      <td>
+        <input type="date" name="data" id="s3_data" placeholder="dd/mm/aaaa">
+      </td>
+      <td id="s3_pregador" contenteditable="true"></td>
+    </tr>
+    <tr>
+      <td>
+        <input type="date" name="data" id="s4_data" placeholder="dd/mm/aaaa">
+      </td>
+      <td id="s4_pregador" contenteditable="true"></td>
+    </tr>
+    <tr>
+      <td>
+        <input type="date" name="data" id="s5_data" placeholder="dd/mm/aaaa">
+      </td>
+      <td id="s5_pregador" contenteditable="true"></td>
+    </tr>
+  </table>
+  <div id="botao">
+    <button type="submit" class="save-button" id="bSalvarTerca">Gravar</button>
+  </div>
+  <p>
+    Não esqueça de confirmar se ficou salvo as alterações, recarregue a página
+    após gravar.
+  </p>
+  <a href="preencher-tabelas">Voltar</a>
+
+  <script src="./../../Menu-adm/SCRIPT/Pregadores.js"></script>
+</form>

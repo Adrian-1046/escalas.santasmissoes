@@ -1,0 +1,57 @@
+<form
+  onsubmit="event.preventDefault(); atualizarRecepcionistaADM('DomingoNoite');"
+>
+  <h1>Casais na Recepção - DOMINGO NOITE</h1>
+  <table>
+    <tr>
+      <th>DATA</th>
+      <th>CASAIS NA RECEPÇÃO</th>
+    </tr>
+    <tr>
+      <td>
+        <input type="date" name="data" id="s1_data" placeholder="dd/mm/aaaa">
+      </td>
+      <td id="s1_recepcionista" contenteditable="true"></td>
+    </tr>
+    <tr>
+      <td>
+        <input type="date" name="data" id="s2_data" placeholder="dd/mm/aaaa">
+      </td>
+      <td id="s2_recepcionista" contenteditable="true"></td>
+    </tr>
+    <tr>
+      <td>
+        <input type="date" name="data" id="s3_data" placeholder="dd/mm/aaaa">
+      </td>
+      <td id="s3_recepcionista" contenteditable="true"></td>
+    </tr>
+    <tr>
+      <td>
+        <input type="date" name="data" id="s4_data" placeholder="dd/mm/aaaa">
+      </td>
+      <td id="s4_recepcionista" contenteditable="true"></td>
+    </tr>
+    <tr>
+      <td>
+        <input type="date" name="data" id="s5_data" placeholder="dd/mm/aaaa">
+      </td>
+      <td id="s5_recepcionista" contenteditable="true"></td>
+    </tr>
+  </table>
+  <div id="botao">
+    <button
+      type="submit"
+      class="save-button"
+      id="bSalvarDomingoNoite"
+    >
+      Gravar
+    </button>
+  </div>
+  <p>
+    Não esqueça de confirmar se ficou salvo as alterações, recarregue a página
+    após gravar.
+  </p>
+  <a href="preencher-tabelas">Voltar</a>
+
+  <script src="./../../Menu-adm/SCRIPT/Recepcionistas.js"></script>
+</form>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="./ESTILO/menu.css" />
+
+    <title>Alterar Cadastros</title>
+    <link rel="icon" href="./fav-icon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="./fav-icon.png" type="image/x-icon" />
+  </head>
+  <body>
+    <section class="menu">
+      <div class="menu__logo">
+        <img src="./FUNDOMENU.png" alt="Falha ao carregar arquivo" />
+      </div>
+
+      <div class="container" id="container-adm2">
+        <h1>Alterar cadastros</h1>
+
+        <div id="search">
+          <label for="consultaUsuario">Consultar:</label>
+          <input type="text" id="consultaUsuario" name="consultaUsuario" />
+          <button
+            class="btn btn-primary search"
+            type="button"
+            onclick="consultaUsuario()"
+          >
+            Pesquisar
+          </button>
+        </div>
+
+        <form
+          id="cadastroForm2"
+          onsubmit="event.preventDefault(); atualizarCadastro();"
+        >
+          <input
+            style="display: none"
+            type="text"
+            id="editId"
+            name="editId"
+            readonly
+          />
+
+          <label for="editUsuario">USUÁRIO</label>
+          <input
+            style="cursor: default"
+            type="text"
+            id="editUsuario"
+            name="editUsuario"
+            readonly
+            required
+          />
+
+          <label for="editSenha">SENHA</label>
+          <input type="text" id="editSenha" name="editSenha" required />
+
+          <label for="editTelefone">ATIVO</label>
+          <select id="editAtivo" class="acesso-opt" name="editAtivo">
+            <option value=""></option>
+            <option value="SIM">SIM</option>
+            <option value="NAO">NÃO</option>
+          </select>
+
+          <label for="acesso">ACESSO</label>
+          <select id="optAcesso" name="acesso">
+            <option value=""></option>
+            <option value="MST">MASTER - Acesso total</option>
+            <option value="ADM">ADMIN - Preenche tabelas</option>
+            <option value="MIN">
+              MINISTRO - Visualiza escalas, altera músicas
+            </option>
+            <option value="PGD">PREGADOR - Visualiza pregadores</option>
+            <option value="REC">
+              RECEPCIONISTA - Visualiza recepcionistas
+            </option>
+            <option value="USR">PADRÃO - Visualiza apenas tabelas</option>
+          </select>
+
+          <input type="hidden" id="editIndex" name="editIndex" />
+
+          <a id="logoutButton" href="inicio">Inicio</a>
+          <a id="acesso" href="adm">Voltar</a>
+        </form>
+        <button
+          class="btn btn-primary"
+          id="submit-cad2"
+          type="submit"
+          onclick="atualizarCadastro()"
+        >
+          Atualizar Cadastro
+        </button>
+
+        <button
+        class="btn btn-primary"
+        id="submit-cad3"
+        type="submit"
+        onclick="deletarUsuario()"
+      >
+        Deletar Usuário
+      </button>
+
+      <button
+      style="display: none;"
+      class="btn btn-primary"
+      id="submit-cad4"
+      type="submit"
+      onclick="deletarAgora(editUsuario.value)"
+    >
+      Deletar Agora
+    </button>
+      </div>
+    </section>
+
+    <script src="./SCRIPT/Acesso.js"></script>
+    <script src="./SCRIPT/Adm.js"></script>
+  </body>
+</html>

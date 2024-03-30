@@ -123,7 +123,19 @@ function buscarDadosDoServidorRecepcionistas(tela) {
           );
 
           if (dataCell && recepcionistaCell) {
-            dataCell.value = dadosArray[i * colunas];
+            const data1 = new Date(dadosArray[i * colunas])
+
+        const dia1 = data1.getDate()
+
+        const mes1 = data1.getMonth()+1
+
+        const fdia1 = dia1 < 10 ? '0' + dia1 : dia1;
+
+        const fmes1 = mes1 < 10 ? '0' + mes1 : mes1;
+
+        const dataFormatada1 = fdia1 + '-' + fmes1
+            
+            dataCell.innerText = dataFormatada1
             recepcionistaCell.innerText = dadosArray[i * colunas + 1];
           }
         }

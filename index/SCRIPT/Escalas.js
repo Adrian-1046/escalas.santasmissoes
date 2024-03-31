@@ -136,11 +136,11 @@ function buscarDadosDoServidorEscalas(tela, dia) {
         const data4 = new Date(dadosArray[3])
         const data5 = new Date(dadosArray[4])
 
-        const dia1 = data1.getDate();
-        const dia2 = data2.getDate();
-        const dia3 = data3.getDate();
-        const dia4 = data4.getDate();
-        const dia5 = data5.getDate();
+        const dia1 = data1.getDate()+1;
+        const dia2 = data2.getDate()+1;
+        const dia3 = data3.getDate()+1;
+        const dia4 = data4.getDate()+1;
+        const dia5 = data5.getDate()+1;
 
         const mes1 = data1.getMonth()+1;
         const mes2 = data2.getMonth()+1;

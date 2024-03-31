@@ -160,11 +160,11 @@ function buscarDadosDoServidorEscalas(tela, dia) {
         const fmes4 = mes4 < 10 ? '0' + mes4 : mes4;
         const fmes5 = mes5 < 10 ? '0' + mes5 : mes5;
 
-        const dataFormatada1 = fdia1 + '-' + fmes1
-        const dataFormatada2 = fdia2 + '-' + fmes2
-        const dataFormatada3 = fdia3 + '-' + fmes3
-        const dataFormatada4 = fdia4 + '-' + fmes4
-        const dataFormatada5 = fdia5 + '-' + fmes5
+        const dataFormatada1 = `${fdia1} - ${fmes1}`
+        const dataFormatada2 = `${fdia2} - ${fmes2}`
+        const dataFormatada3 = `${fdia3} - ${fmes3}`
+        const dataFormatada4 = `${fdia4} - ${fmes4}`
+        const dataFormatada5 = `${fdia5} - ${fmes5}`
 
         for (let i = 0; i < totalLinhas; i++) {
           document.getElementById(`S1_data`).innerText = dataFormatada1

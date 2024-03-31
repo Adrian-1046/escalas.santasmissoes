@@ -72,19 +72,24 @@ function atualizarMusicas(tela) {
   }
 }
 
-
-
 function buscarDadosDoServidorMusicas(tela) {
   mostrarLoading();
 
   fetch(`/inicio/musicas/${tela}`, { timeout: 50000 })
     .then(response => {
+      if (!response.ok) {
+        throw new Error(
+          `Erro na busca de dados: ${response.status} ${response.statusText}`
+        );
+      }
       return response.json();
     })
     .then(dados => {
+
+      console.log(dados);
       const container = document.querySelector('.musicas_container');
-      container.innerHTML = ''; 
-    
+      container.innerHTML = '';
+
       let dia;
       switch (tela) {
         case 'DomingoManha':
@@ -105,49 +110,42 @@ function buscarDadosDoServidorMusicas(tela) {
       }
 
       dados.forEach((dado, index) => {
-        const data = dado[`DATA`]
-        const ministro = dado[`MINISTRO`]
-        const musica = dado[`MUSICA`] 
-        const obs = dado[`OBS`] 
-        const link = dado[`LINK`]
+        const data = dado[`DATA`] || '';
+        const ministrante = dado[`MINISTRO`];
+        const musica = dado[`MUSICA`] || '';
+        const obs = dado[`OBS`] || '';
+        const link = dado[`LINK`] || '';
 
-        const data1 = new Date(data)
+        const dataCell = document.getElementById(`data${dia}`);
+        const ministranteCell = document.getElementById(`ministrante${dia}`);
 
-        const dia1 = data1.getDate();
+        if (dataCell && ministranteCell) {
+          const convert = new Date(data)
+          const dia = convert.getDate();
+          const mes = convert.getMonth()+1;
+          const fdia = dia < 10 ? '0' + dia : dia;
+          const fmes = mes < 10 ? '0' + mes : mes;
+          const dataFormatada = fdia + '-' + fmes
 
-        const mes1 = data1.getMonth()+1;
-
-        const fdia1 = dia1 < 10 ? '0' + dia1 : dia1;
-
-        const fmes1 = mes1 < 10 ? '0' + mes1 : mes1;
-        
-        const dataFormatada1 = `${fdia1} - ${fmes1}`
-
-        const vdata = document.getElementById('data');
-        vdata.value = dataFormatada1
-
-        const vministro = document.getElementById('ministro')
-        vministro.innerText = ministro
-   
-        if (musica || obs || link) { 
+          dataCell.innerText = dataFormatada;
+          ministranteCell.innerText = ministrante;
+        }
 
           const div = document.createElement('div');
           div.classList.add('musicas');
           div.setAttribute('key', index);
-    
+
           const musicaElement = document.createElement('p');
           musicaElement.innerText = musica;
-    
+
           const obsElement = document.createElement('small');
           obsElement.classList.add('text-light');
           obsElement.innerText = obs;
-    
+
           const linkElement = document.createElement('a');
           linkElement.setAttribute('href', link);
           linkElement.textContent = 'Saiba mais';
 
-
-    
           div.appendChild(musicaElement);
           if (obs) {
             div.appendChild(obsElement);
@@ -158,7 +156,7 @@ function buscarDadosDoServidorMusicas(tela) {
           }
           
           container.appendChild(div);
-        }
+        
       });
     })
     .finally(() => {
@@ -169,6 +167,7 @@ function buscarDadosDoServidorMusicas(tela) {
       ocultarLoading();
     });
 }
+
 
 
 

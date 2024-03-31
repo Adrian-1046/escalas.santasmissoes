@@ -109,12 +109,12 @@ function buscarDadosDoServidorMusicasADM(tela) {
         const ministro = dado[`MINISTRO`]
         const musica = dado[`MUSICA`] 
         const obs = dado[`OBS`] 
-        const link = dado[`LINK`] 
+        const link = dado[`LINK`]
 
-        vdata = document.getElementById('data');
+        const vdata = document.getElementById('data');
         vdata.value = data
 
-        vministro = document.getElementById('ministro')
+        const vministro = document.getElementById('ministro')
         vministro.innerText = ministro
    
         if (musica || obs || link) { 

@@ -200,7 +200,7 @@ function buscarDadosDoServidorMusicasADM(tela) {
     
           const linkElement = document.createElement('a');
           linkElement.setAttribute('href', link);
-          linkElement.textContent = 'Saiba mais';
+          linkElement.textContent = 'Clique aqui';
 
           const removeElement = document.createElement('button');
           removeElement.textContent = `remover`;

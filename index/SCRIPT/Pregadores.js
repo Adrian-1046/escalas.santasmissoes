@@ -122,7 +122,7 @@ function buscarDadosDoServidorPregadores(tela) {
           if (dataCell && pregadorCell) {
         const data1 = new Date(dadosArray[i * colunas])
 
-        const dia1 = data1.getDate()
+        const dia1 = data1.getDate()+1
 
         const mes1 = data1.getMonth()+1
 

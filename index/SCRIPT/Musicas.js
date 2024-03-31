@@ -125,7 +125,7 @@ function buscarDadosDoServidorMusicas(tela) {
           const mes = convert.getMonth()+1;
           const fdia = dia < 10 ? '0' + dia : dia;
           const fmes = mes < 10 ? '0' + mes : mes;
-          const dataFormatada = fdia + '-' + fmes
+          const dataFormatada = `${fdia}-${fmes}`
 
           dataCell.innerText = dataFormatada;
           ministranteCell.innerText = ministrante;

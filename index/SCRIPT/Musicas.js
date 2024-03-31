@@ -74,7 +74,7 @@ function atualizarMusicas(tela) {
 
 
 
-function buscarDadosDoServidorMusicasADM(tela) {
+function buscarDadosDoServidorMusicas(tela) {
   mostrarLoading();
 
   fetch(`/inicio/musicas/${tela}`, { timeout: 50000 })
@@ -111,8 +111,20 @@ function buscarDadosDoServidorMusicasADM(tela) {
         const obs = dado[`OBS`] 
         const link = dado[`LINK`]
 
+        const data1 = new Date(data
+
+        const dia1 = data1.getDate();
+
+        const mes1 = data1.getMonth()+1;
+
+        const fdia1 = dia1 < 10 ? '0' + dia1 : dia1;
+
+        const fmes1 = mes1 < 10 ? '0' + mes1 : mes1;
+        
+        const dataFormatada1 = `${fdia1} - ${fmes1}`
+
         const vdata = document.getElementById('data');
-        vdata.value = data
+        vdata.value = dataFormatada1
 
         const vministro = document.getElementById('ministro')
         vministro.innerText = ministro

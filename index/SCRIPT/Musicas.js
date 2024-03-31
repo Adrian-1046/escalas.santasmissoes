@@ -111,7 +111,7 @@ function buscarDadosDoServidorMusicas(tela) {
         const obs = dado[`OBS`] 
         const link = dado[`LINK`]
 
-        const data1 = new Date(data
+        const data1 = new Date(data)
 
         const dia1 = data1.getDate();
 

@@ -94,6 +94,46 @@ mostrarLoading()
     });
 }
 
+function removerMusicaADM(tela) {
+mostrarLoading()
+
+  let dia;
+  switch (tela) {
+    case 'DomingoManha':
+      dia = '-DM';
+      break;
+    case 'DomingoNoite':
+      dia = '-DN';
+      break;
+    case 'Terca':
+      dia = '-T';
+      break;
+    case 'Quarta':
+      dia = '-Q';
+      break;
+    default:
+      dia = '';
+      break;
+  }
+
+
+  fetch(`/remover-todas-musicas/${tela}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: bodyData,
+  }).then(() => {
+    document.getElementById(`musica${dia}`).innerText = ''
+    document.getElementById(`link${dia}`).innerText = ''
+    document.getElementById(`obs${dia}`).innerText = ''
+  })
+    .then(() => {buscarDadosDoServidorMusicasADM(tela)})
+    .catch((error) => {
+      console.error('Erro na solicitação de atualização:', error);
+    });
+}
+
 async function removerMusica(tela, musica, link, obs) {
   mostrarLoading()
 

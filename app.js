@@ -1401,6 +1401,8 @@ app.post(  '/atualizar-pregadores/:dia',
 
 app.post('/remover-todas-musicas/:tela', verificaAutorizacao, async (req, res) => {
 
+  const { tela } = req.params
+
   switch (tela) {
     case 'DomingoManha':
       remover_musica_dm()

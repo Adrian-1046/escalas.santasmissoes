@@ -196,14 +196,14 @@ function buscarDadosDoServidorMusicasADM(tela) {
     
           const obsElement = document.createElement('small');
           obsElement.classList.add('text-light');
-          obsElement.innerText = obs;
+          obsElement.innerText = obs + <br />;
     
           const linkElement = document.createElement('a');
           linkElement.setAttribute('href', link);
           linkElement.textContent = 'Clique aqui';
 
           const removeElement = document.createElement('button');
-          removeElement.innerHTML = `<br /><span class="material-symbols-outlined">
+          removeElement.innerHTML = `<span class="material-symbols-outlined">
 delete
 </span>`;
           removeElement.setAttribute('type', 'button')

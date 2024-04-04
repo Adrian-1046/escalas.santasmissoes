@@ -1426,7 +1426,6 @@ app.post('/remover/:tela/:musica/:link/:obs/mlo', verificaAutorizacao, async (re
     try {
       let whereClause = {};
       whereClause[`MUSICA`] = musica;
-      whereClause[`LINK`] = link;
       whereClause[`OBS`] = obs;
   
       await musicas_dm.destroy({
@@ -1444,7 +1443,6 @@ app.post('/remover/:tela/:musica/:link/:obs/mlo', verificaAutorizacao, async (re
     try {
       let whereClause = {};
       whereClause[`MUSICA`] = musica;
-      whereClause[`LINK`] = link;
       whereClause[`OBS`] = obs;
   
       await musicas_dn.destroy({
@@ -1462,7 +1460,6 @@ async function remover_musica_t() {
   try {
     let whereClause = {};
     whereClause[`MUSICA`] = musica;
-    whereClause[`LINK`] = link;
     whereClause[`OBS`] = obs;
 
     await musicas_t.destroy({
@@ -1480,7 +1477,6 @@ async function remover_musica_q() {
   try {
     let whereClause = {};
     whereClause[`MUSICA`] = musica;
-    whereClause[`LINK`] = link;
     whereClause[`OBS`] = obs;
 
     await musicas_q.destroy({
@@ -1613,7 +1609,6 @@ app.post('/remover/:tela/:link/:obs/lo', verificaAutorizacao, async (req, res) =
   async function remover_musica_dm() {
     try {
       let whereClause = {};
-      whereClause[`LINK`] = link;
       whereClause[`OBS`] = obs;
   
       await musicas_dm.destroy({
@@ -1630,7 +1625,6 @@ app.post('/remover/:tela/:link/:obs/lo', verificaAutorizacao, async (req, res) =
   async function remover_musica_dn() {
     try {
       let whereClause = {};
-      whereClause[`LINK`] = link;
       whereClause[`OBS`] = obs;
   
       await musicas_dn.destroy({
@@ -1647,7 +1641,6 @@ app.post('/remover/:tela/:link/:obs/lo', verificaAutorizacao, async (req, res) =
 async function remover_musica_t() {
   try {
     let whereClause = {};
-    whereClause[`LINK`] = link;
     whereClause[`OBS`] = obs;
 
     await musicas_t.destroy({
@@ -1664,7 +1657,6 @@ async function remover_musica_t() {
 async function remover_musica_q() {
   try {
     let whereClause = {};
-    whereClause[`LINK`] = link;
     whereClause[`OBS`] = obs;
 
     await musicas_q.destroy({
@@ -1705,7 +1697,6 @@ app.post('/remover/:tela/:musica/:link/ml', verificaAutorizacao, async (req, res
     try {
       let whereClause = {};
       whereClause[`MUSICA`] = musica;
-      whereClause[`LINK`] = link;
   
       await musicas_dm.destroy({
         where: whereClause
@@ -1722,7 +1713,6 @@ app.post('/remover/:tela/:musica/:link/ml', verificaAutorizacao, async (req, res
     try {
       let whereClause = {};
       whereClause[`MUSICA`] = musica;
-      whereClause[`LINK`] = link;
   
       await musicas_dn.destroy({
         where: whereClause
@@ -1739,7 +1729,6 @@ async function remover_musica_t() {
   try {
     let whereClause = {};
     whereClause[`MUSICA`] = musica;
-    whereClause[`LINK`] = link;
 
     await musicas_t.destroy({
       where: whereClause
@@ -1756,7 +1745,6 @@ async function remover_musica_q() {
   try {
     let whereClause = {};
     whereClause[`MUSICA`] = musica;
-    whereClause[`LINK`] = link;
 
     await musicas_q.destroy({
       where: whereClause

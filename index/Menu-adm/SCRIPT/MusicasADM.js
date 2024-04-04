@@ -203,7 +203,7 @@ function buscarDadosDoServidorMusicasADM(tela) {
           linkElement.textContent = 'Clique aqui';
 
           const removeElement = document.createElement('button');
-          removeElement.innerHTML = `<span class="material-symbols-outlined">
+          removeElement.innerHTML = `<br /><span class="material-symbols-outlined">
 delete
 </span>`;
           removeElement.setAttribute('type', 'button')

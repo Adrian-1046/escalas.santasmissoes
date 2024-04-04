@@ -203,7 +203,9 @@ function buscarDadosDoServidorMusicasADM(tela) {
           linkElement.textContent = 'Clique aqui';
 
           const removeElement = document.createElement('button');
-          removeElement.textContent = `remover`;
+          removeElement.innerHTML = `<span class="material-symbols-outlined">
+delete
+</span>`;
           removeElement.setAttribute('type', 'button')
           removeElement.onclick = function() {
             removerMusica(tela, musica, link, obs);

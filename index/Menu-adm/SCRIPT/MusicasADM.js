@@ -197,7 +197,7 @@ function buscarDadosDoServidorMusicasADM(tela) {
           const obsElement = document.createElement('small');
           obsElement.classList.add('text-light');
           obsElement.innerText = obs;
-          obsElement.innerHTML = '<br />';
+          obsElement.innerHTML += '<br />';
     
           const linkElement = document.createElement('a');
           linkElement.setAttribute('href', link);

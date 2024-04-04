@@ -1399,6 +1399,86 @@ app.post(  '/atualizar-pregadores/:dia',
   }
 )
 
+app.post('/remover-todas-musicas/:tela', verificaAutorizacao, async (req, res) => {
+
+  switch (tela) {
+    case 'DomingoManha':
+      remover_musica_dm()
+      break;
+    case 'DomingoNoite':
+      remover_musica_dn()
+      break;
+    case 'Terca':
+      remover_musica_t()
+      break;
+    case 'Quarta':
+      remover_musica_q()
+      break;
+    default:
+      break;
+  }
+
+  async function remover_musica_dm() {
+    try {
+      let whereClause = {};
+  
+      await musicas_dm.destroy({
+        where: whereClause
+      });
+  
+      res.status(200).send("Música removida com sucesso!");
+    } catch (error) {
+      console.error('Error while removing music:', error);
+      res.status(500).send("Error while removing music");
+    }
+  }
+
+  async function remover_musica_dn() {
+    try {
+      let whereClause = {};
+  
+      await musicas_dn.destroy({
+        where: whereClause
+      });
+  
+      res.status(200).send("Música removida com sucesso!");
+    } catch (error) {
+      console.error('Error while removing music:', error);
+      res.status(500).send("Error while removing music");
+    }
+}
+
+async function remover_musica_t() {
+  try {
+    let whereClause = {};
+
+    await musicas_t.destroy({
+      where: whereClause
+    });
+
+    res.status(200).send("Música removida com sucesso!");
+  } catch (error) {
+    console.error('Error while removing music:', error);
+    res.status(500).send("Error while removing music");
+  }
+}
+
+async function remover_musica_q() {
+  try {
+    let whereClause = {};
+
+    await musicas_q.destroy({
+      where: whereClause
+    });
+
+    res.status(200).send("Música removida com sucesso!");
+  } catch (error) {
+    console.error('Error while removing music:', error);
+    res.status(500).send("Error while removing music");
+  }
+}
+})
+
 app.post('/remover/:tela/:musica/:link/:obs/mlo', verificaAutorizacao, async (req, res) => {
   const musica = req.params.musica;
   const tela = req.params.tela;

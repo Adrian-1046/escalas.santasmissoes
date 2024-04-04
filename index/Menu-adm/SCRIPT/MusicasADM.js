@@ -122,7 +122,6 @@ mostrarLoading()
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
-    body: bodyData,
   }).then(() => {
     document.getElementById(`musica${dia}`).innerText = ''
     document.getElementById(`link${dia}`).innerText = ''

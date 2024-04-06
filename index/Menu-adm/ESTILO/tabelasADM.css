@@ -107,6 +107,13 @@ td[contenteditable='true'] {
   display: flex;
 }
 
+@media screen and (max-width: 670px) {
+  #botao,
+  #submit-button {
+    flex-direction: column;
+  }
+}
+
 p {
   font-size: 1.5rem;
   color: #bf9004; /* Texto informativo em um tom mais escuro */
